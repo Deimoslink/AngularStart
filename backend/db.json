@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "createdAt": 1524574438102,
+      "id": 2
+    },
+    {
+      "createdAt": 1524574539288,
+      "id": 3
+    },
+    {
+      "fromClient": "value from client",
+      "createdAt": 1524574594059,
+      "id": 4
+    },
+    {
+      "fromClient": "value from client",
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
