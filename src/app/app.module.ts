@@ -4,6 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpInterceptorService} from "./shared/api/http-interceptor.service";
+import {AuthenticationService} from "./shared/services/authentication.service";
 
 
 @NgModule({
@@ -16,10 +17,11 @@ import {HttpInterceptorService} from "./shared/api/http-interceptor.service";
     AppRoutingModule
   ],
   providers: [
+    AuthenticationService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpInterceptorService,
-    multi: true
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
