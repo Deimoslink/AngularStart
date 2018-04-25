@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ComponentAComponent} from "./component-a.component";
-import {RouterModule, Routes} from "@angular/router";
-import {LoggedInGuard} from "../app-guard";
+import {ComponentAComponent} from './component-a.component';
+import {RouterModule, Routes} from '@angular/router';
+import {LoggedInGuard} from '../shared/auth/auth-guards';
 
 const routes: Routes = [
   { path: '', component: ComponentAComponent, canActivate: [LoggedInGuard] }

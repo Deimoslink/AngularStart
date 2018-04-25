@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService} from "./shared/services/authentication.service";
 import {distinctUntilChanged, takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
+import {AuthenticationService} from './shared/auth/authentication.service';
 
 @Component({
   selector: 'app-root',

@@ -21,6 +21,16 @@
     {
       "fromClient": "value from client",
       "id": 5
+    },
+    {
+      "fromClient": "value from client",
+      "createdAt": 1524638490440,
+      "id": 6
+    },
+    {
+      "fromClient": "value from client",
+      "createdAt": 1524638683085,
+      "id": 7
     }
   ],
   "comments": [

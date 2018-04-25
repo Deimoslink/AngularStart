@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from "../shared/services/authentication.service";
+import {AuthenticationService} from '../shared/auth/authentication.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-component-b',
@@ -7,6 +8,8 @@ import {AuthenticationService} from "../shared/services/authentication.service";
   styleUrls: ['./component-b.component.scss']
 })
 export class ComponentBComponent implements OnInit {
+
+  env = environment;
 
   constructor(private authenticationService: AuthenticationService) { }
 

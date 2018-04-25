@@ -3,10 +3,11 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {RouterTestingModule} from '@angular/router/testing';
-import {AuthenticationService} from './services/authentication.service';
+import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
   imports: [
+    AuthModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -14,8 +15,7 @@ import {AuthenticationService} from './services/authentication.service';
     RouterTestingModule,
   ],
   providers: [
-    HttpClient,
-    AuthenticationService
+    HttpClient
   ]
 })
 export class TestingDepsModule { }

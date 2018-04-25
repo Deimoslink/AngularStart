@@ -2,11 +2,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpInterceptorService} from "./shared/api/http-interceptor.service";
-import {AuthenticationService} from "./shared/services/authentication.service";
-import {LoggedInGuard} from "./app-guard";
-
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpInterceptorService} from './shared/api/http-interceptor.service';
+import {AuthModule} from './shared/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -15,11 +13,10 @@ import {LoggedInGuard} from "./app-guard";
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   providers: [
-    AuthenticationService,
-    LoggedInGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
