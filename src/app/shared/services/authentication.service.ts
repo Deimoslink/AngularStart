@@ -4,6 +4,7 @@ import {Subject} from "rxjs/Subject";
 @Injectable()
 export class AuthenticationService {
 
+  public authenticated = true;
   constructor() { }
 
   private emitAuthenticationState = new Subject<any>();
@@ -11,13 +12,19 @@ export class AuthenticationService {
 
   login() {
     console.log('loggin in');
-    this.emitAuthenticationState.next(true);
+    this.authenticated = true;
+    this.emitAuthenticationState.next(this.authenticated);
   }
 
   logout() {
     console.log('loggin out');
-    this.emitAuthenticationState.next(false);
+    this.authenticated = false;
+    this.emitAuthenticationState.next(this.authenticated);
   }
 
+  isAuthenticated() {
+    console.log('isAuthenticated asked');
+    return this.authenticated;
+  };
 
 }

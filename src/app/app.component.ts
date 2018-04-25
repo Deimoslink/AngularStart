@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private authenticationService: AuthenticationService) {}
 
-  authenticated = false;
+  authenticated = this.authenticationService.isAuthenticated();
 
   ngOnInit() {
     this.authenticationService.authenticationStateStream.pipe(
