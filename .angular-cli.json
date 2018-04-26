@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "./vendor/pace/pace-theme-minimal.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.scss"
       ],
       "scripts": [

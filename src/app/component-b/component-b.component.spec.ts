@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ComponentBComponent} from './component-b.component';
-import {ComponentBModule} from "./component-b.module";
-import {TestingDepsModule} from "../shared/testing-deps.module";
+import {ComponentBModule} from './component-b.module';
+import {TestingDepsModule} from '../shared/testing-deps.module';
 
 describe('ComponentBComponent', () => {
   let component: ComponentBComponent;
