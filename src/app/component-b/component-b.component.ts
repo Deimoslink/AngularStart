@@ -21,7 +21,7 @@ export class ComponentBComponent implements OnInit {
               private modalService: NgbModal) { }
 
   open(modal) {
-    const modalRef = this.modalService.open(this.modals[modal]);
+    const modalRef = this.modalService.open(this.modals[modal], { size: 'lg' });
     modalRef.componentInstance.name = modal;
   }
 
