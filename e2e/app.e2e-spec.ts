@@ -11,10 +11,13 @@ describe('angular-start App', () => {
   it('should login and navigate', () => {
     page.navigateTo();
     page.getNavigationButton('componentB').click();
+    browser.waitForAngular();
     expect(browser.getCurrentUrl()).toContain('componentB');
     page.getButtonByLabel('Login').click();
     expect(page.getParagraphText()).toEqual('Authentication status true');
+    browser.waitForAngular();
     page.getNavigationButton('componentA').click();
+    browser.waitForAngular();
     expect(browser.getCurrentUrl()).toContain('componentA');
   });
 
