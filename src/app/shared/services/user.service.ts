@@ -18,4 +18,8 @@ export class UserService {
     sessionStorage.removeItem('user');
   }
 
+  getUserData() {
+    return sessionStorage.user ? JSON.parse(sessionStorage.user).additionalUserInfo.profile : false;
+  }
+
 }

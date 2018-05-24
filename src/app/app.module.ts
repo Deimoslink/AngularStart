@@ -7,7 +7,18 @@ import {HttpInterceptorService} from './shared/api/http-interceptor.service';
 import {AuthModule} from './shared/auth/auth.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ModalsModule} from './shared/modals/modals.module';
-import {SharedModule} from "./shared/shared.module";
+import {SharedModule} from './shared/shared.module';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+
+export const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyBUMeEqc_FZg2UAnWHVR9mH6fqpt9UIzEE',
+  authDomain: 'testfirebaseproject-39110.firebaseapp.com',
+  databaseURL: 'https://testfirebaseproject-39110.firebaseio.com',
+  projectId: 'testfirebaseproject-39110',
+  storageBucket: 'testfirebaseproject-39110.appspot.com',
+  messagingSenderId: '966082447044'
+};
 
 @NgModule({
   declarations: [
@@ -20,7 +31,9 @@ import {SharedModule} from "./shared/shared.module";
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireDatabaseModule
   ],
   providers: [
     {

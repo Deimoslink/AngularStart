@@ -1,13 +1,19 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-modal-a',
   templateUrl: './modal-a.component.html',
   styleUrls: ['./modal-a.component.scss']
 })
-export class ModalAComponent {
+export class ModalAComponent implements OnInit {
   @Input() name;
+  user;
+  constructor(public activeModal: NgbActiveModal,
+              private userService: UserService) {}
 
-  constructor(public activeModal: NgbActiveModal) {}
+  ngOnInit() {
+    this.user = this.userService.getUserData();
+  }
 }

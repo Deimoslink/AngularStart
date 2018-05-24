@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AuthenticationService} from './authentication.service';
 import {LoggedInGuard} from "./auth-guards";
+import {AngularFireAuth} from "angularfire2/auth";
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import {LoggedInGuard} from "./auth-guards";
   ],
   providers: [
     AuthenticationService,
-    LoggedInGuard
+    LoggedInGuard,
+    AngularFireAuth
   ]
 })
 export class AuthModule { }
