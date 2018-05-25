@@ -10,19 +10,14 @@ export class ComponentAComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
-  simulateError(errCode) {
-    this.api.simulateError(errCode)
-      .subscribe(res => console.log(res));
+  writeWord(word) {
+    this.api.saveNewWord(word).subscribe(res => {
+      console.log(res);
+    });
   }
 
-  fetchData() {
-    this.api.fetchData()
-      .subscribe(res => console.log(res));
-  }
-
-  recordData() {
-    this.api.recordData()
-      .subscribe(res => console.log(res));
+  getWords() {
+    this.api.getWords().subscribe(res => console.log(res));
   }
 
   ngOnInit() {

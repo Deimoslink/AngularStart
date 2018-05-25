@@ -1,23 +1,29 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {UserService} from "../services/user.service";
+import {AngularFireDatabase} from "angularfire2/database";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private userService: UserService,
+              private dbConnection: AngularFireDatabase) {
 
-  simulateError(errCode): Observable<any> {
-    return this.http.get('http://localhost:3000/get-error?error=' + errCode);
   }
 
-  fetchData(): Observable<any> {
-    return this.http.get('http://localhost:3000/posts');
+  saveNewWord(newWord) {
+    const data = JSON.stringify(newWord);
+    const userId = this.userService.getUserId();
+    const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/words.json';
+    return this.http.post(query, data);
   }
 
-  recordData(): Observable<any> {
-    return this.http.post('http://localhost:3000/posts', {fromClient: 'value from client'});
+  getWords(): Observable<any> {
+    const userId = this.userService.getUserId();
+    const query = '/' + userId + '/words';
+    return this.dbConnection.list(query, ref => ref).snapshotChanges()
   }
-
 
 }

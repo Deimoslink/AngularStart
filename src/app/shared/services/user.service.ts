@@ -22,4 +22,9 @@ export class UserService {
     return sessionStorage.user ? JSON.parse(sessionStorage.user).additionalUserInfo.profile : false;
   }
 
+  getUserId() {
+    const userData = this.getUserData();
+    return userData.id;
+  }
+
 }
