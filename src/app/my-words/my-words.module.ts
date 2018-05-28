@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ComponentAComponent} from './component-a.component';
+import {MyWordsComponent} from "./my-words.component";
 import {RouterModule, Routes} from '@angular/router';
 import {LoggedInGuard} from '../shared/auth/auth-guards';
 
 const routes: Routes = [
-  { path: '', component: ComponentAComponent, canActivate: [LoggedInGuard] }
+  { path: '', component: MyWordsComponent, canActivate: [LoggedInGuard] }
 ];
 
 @NgModule({
@@ -13,6 +13,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule
   ],
-  declarations: [ComponentAComponent]
+  declarations: [MyWordsComponent]
 })
-export class ComponentAModule { }
+export class MyWordsModule { }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from "../services/user.service";
 import {AngularFireDatabase} from "angularfire2/database";
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class ApiService {
@@ -20,10 +20,16 @@ export class ApiService {
     return this.http.post(query, data);
   }
 
-  getWords(): Observable<any> {
+  getWords():Observable<any> {
     const userId = this.userService.getUserId();
     const query = '/' + userId + '/words';
-    return this.dbConnection.list(query, ref => ref).snapshotChanges()
+    return this.dbConnection.list(query).snapshotChanges()
+  }
+
+  deleteWordByKey(key):Observable<any> {
+    const userId = this.userService.getUserId();
+    const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/words/' + key + '.json';
+    return this.http.delete(query);
   }
 
 }

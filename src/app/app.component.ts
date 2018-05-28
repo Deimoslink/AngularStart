@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {distinctUntilChanged, takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import {AuthenticationService} from './shared/auth/authentication.service';
@@ -11,7 +11,8 @@ import {AuthenticationService} from './shared/auth/authentication.service';
 export class AppComponent implements OnInit, OnDestroy {
   private componentAlive: Subject<void> = new Subject();
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService,
+              private changeDetector: ChangeDetectorRef) {}
 
   authenticated = this.authenticationService.isAuthenticated();
 
@@ -20,13 +21,20 @@ export class AppComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       takeUntil(this.componentAlive)
     ).subscribe(
-      (change) => {this.authenticated = change; console.log('change')}
+      (change) => {
+        this.authenticated = change;
+        this.changeDetector.detectChanges();
+      }
     )
   }
 
   ngOnDestroy() {
     this.componentAlive.next();
     this.componentAlive.complete();
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 
 }

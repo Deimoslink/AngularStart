@@ -4,7 +4,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpInterceptorService} from './shared/api/http-interceptor.service';
-import {AuthModule} from './shared/auth/auth.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ModalsModule} from './shared/modals/modals.module';
 import {SharedModule} from './shared/shared.module';
@@ -30,7 +29,6 @@ export const FIREBASE_CONFIG = {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
     SharedModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule

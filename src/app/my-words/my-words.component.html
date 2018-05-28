@@ -1,0 +1,23 @@
+<div class="row">
+  <table class="table col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+    <thead class="thead-dark">
+    <tr>
+      <th></th>
+      <th>Russian</th>
+      <th>English</th>
+      <th>Dutch</th>
+      <th>Part of speech</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let word of words">
+      <td><i class="icon-remove delete-button" (click)="deleteWordByKey(word.id)"></i></td>
+      <td>{{word.rus}}</td>
+      <td>{{word.eng}}</td>
+      <td>{{word.ned}}</td>
+      <td><span class="badge badge-primary">{{word.part}}</span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

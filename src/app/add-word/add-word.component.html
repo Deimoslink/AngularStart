@@ -1,0 +1,39 @@
+<div class="row">
+  <form [formGroup]="addWordForm"
+        (ngSubmit)="saveNewWord()"
+        class="add-word-form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+    <h4>Add a new word</h4>
+    <div class="form-group">
+      <label for="addRussianWord">Russian</label>
+      <input type="text"
+             class="form-control"
+             id="addRussianWord"
+             formControlName="rus">
+    </div>
+    <div class="form-group">
+      <label for="addEnglishWord">English</label>
+      <input type="text"
+             class="form-control"
+             id="addEnglishWord"
+             formControlName="eng">
+    </div>
+    <div class="form-group">
+      <label for="addDutchWord">Dutch</label>
+      <input type="text"
+             class="form-control"
+             id="addDutchWord"
+             formControlName="ned">
+    </div>
+
+    <div class="form-group">
+      <label>Part of speech</label>
+      <select class="form-control app-select"
+              formControlName="part">
+        <option *ngFor="let part of partsOfSpeech; let i = index" [value]="part">{{part}}</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!addWordForm.valid">Add word</button>
+  </form>
+</div>
+
+

@@ -3,10 +3,10 @@ import {AuthenticationService} from '../shared/auth/authentication.service';
 
 @Component({
   selector: 'app-component-b',
-  templateUrl: './component-b.component.html',
-  styleUrls: ['./component-b.component.scss']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class ComponentBComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService) { }
 

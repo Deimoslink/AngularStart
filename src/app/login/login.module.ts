@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ComponentBComponent} from "./component-b.component";
+import {LoginComponent} from "./login.component";
 import {RouterModule, Routes} from "@angular/router";
+import {LoggedOutGuard} from "../shared/auth/auth-guards";
 
 const routes: Routes = [
-  { path: '', component: ComponentBComponent }
+  { path: '', component: LoginComponent, canActivate: [LoggedOutGuard] }
 ];
 
 @NgModule({
@@ -12,6 +13,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule
   ],
-  declarations: [ComponentBComponent]
+  declarations: [LoginComponent]
 })
-export class ComponentBModule { }
+export class LoginModule { }
