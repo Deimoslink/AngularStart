@@ -3,10 +3,13 @@ import {CommonModule} from '@angular/common';
 import {SearchByObjKeysPipe} from './search-by-obj-keys.pipe';
 
 @NgModule({
+  declarations: [
+    SearchByObjKeysPipe
+  ],
   imports: [
     CommonModule
   ],
-  providers: [
+  exports: [
     SearchByObjKeysPipe
   ]
 })
