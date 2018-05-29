@@ -1,7 +1,8 @@
-<nav *ngIf="authenticated" class="d-flex justify-content-center">
-  <a class="badge badge-primary" routerLink="my-words">My Words</a>
-  <a class="badge badge-primary" routerLink="add-word">Add Word</a>
-  <a class="badge badge-primary" routerLink="" (click)="logout()">Logout</a>
+<nav *ngIf="authenticated" class="navbar navbar-dark bg-dark d-flex">
+  <a class="navbar-brand" routerLink="">Vocabulary DB</a>
+  <a class="navbar-brand" routerLink="my-words">My Words</a>
+  <a class="navbar-brand" routerLink="add-word">Add Word</a>
+  <a class="navbar-brand ml-auto" routerLink="" (click)="logout()">Logout</a>
 </nav>
 
 <router-outlet></router-outlet>
