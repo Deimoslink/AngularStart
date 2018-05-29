@@ -1,20 +1,21 @@
 import {Injectable} from '@angular/core';
-import {CanActivate} from '@angular/router';
+import {CanActivate, Router} from '@angular/router';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router) {}
 
   canActivate() {
-
-    // if (this.user.authenticated()) { return true; }
-    // console.log('redirect from', window.location.href);
-    // this.router.navigate(['/login'], {queryParams: {redirectURL: window.location.href}});
-    // return false;
-
-    return this.authenticationService.isAuthenticated();
+    if (this.authenticationService.isAuthenticated()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      // this.router.navigate(['/login'], {queryParams: {redirectURL: window.location.href}});
+      return false;
+    }
   }
 
 }
@@ -22,10 +23,16 @@ export class LoggedInGuard implements CanActivate {
 @Injectable()
 export class LoggedOutGuard implements CanActivate {
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router) {}
 
   canActivate() {
-    return !this.authenticationService.isAuthenticated();
+    if (!this.authenticationService.isAuthenticated()) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+      return false;
+    }
   }
 
 }

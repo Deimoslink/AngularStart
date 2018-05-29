@@ -1,7 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {LoggedInGuard} from './shared/auth/auth-guards';
+import {MainComponent} from "./main/main.component";
 
 const routes: Routes = [
+  {path: '', component: MainComponent, canActivate: [LoggedInGuard]},
   {path: 'add-word', loadChildren: './add-word/add-word.module#AddWordModule'},
   {path: 'my-words', loadChildren: './my-words/my-words.module#MyWordsModule'},
   {path: 'login', loadChildren: './login/login.module#LoginModule'},
