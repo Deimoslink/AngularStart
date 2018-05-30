@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalBComponent } from './modal-b.component';
-import {TestingDepsModule} from '../../testing-deps.module';
+import {TestingDepsModule} from '../../testing-deps/testing-deps.module';
 import {ModalsModule} from '../modals.module';
 
 describe('ModalBComponent', () => {

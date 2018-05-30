@@ -1,7 +1,7 @@
 import {TestBed, inject} from '@angular/core/testing';
 
 import {ApiService} from './api.service';
-import {TestingDepsModule} from '../testing-deps.module';
+import {TestingDepsModule} from '../testing-deps/testing-deps.module';
 
 describe('ApiService', () => {
   beforeEach(() => {

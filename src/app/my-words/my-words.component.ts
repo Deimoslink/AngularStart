@@ -23,6 +23,10 @@ export class MyWordsComponent implements OnInit {
     this.api.deleteWordByKey(key).subscribe(res => {})
   }
 
+  refreshNumber(page) {
+    console.log(page)
+  }
+
   ngOnInit() {
     this.getWords();
   }

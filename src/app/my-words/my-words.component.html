@@ -22,3 +22,7 @@
     </table>
   </div>
 </div>
+
+<app-paginator [number]="1"
+               [totalPages]="10"
+               (refreshNumber)="refreshNumber($event)"></app-paginator>

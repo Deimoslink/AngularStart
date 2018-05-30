@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MyWordsComponent} from "./my-words.component";
 import {RouterModule, Routes} from '@angular/router';
 import {LoggedInGuard} from '../shared/auth/auth-guards';
+import {SharedModule} from "../shared/shared.module";
 
 const routes: Routes = [
   { path: '', component: MyWordsComponent, canActivate: [LoggedInGuard] }
@@ -11,7 +12,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   declarations: [MyWordsComponent]
 })

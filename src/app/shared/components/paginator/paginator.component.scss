@@ -1,0 +1,48 @@
+@import '~global.scss';
+
+ul.ul-style-reset {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}
+
+ul {
+  @include show-flex(row, center);
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  li {
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+    &.hide {
+      visibility: hidden;
+    }
+    &:first-of-type {
+      margin-right: 20px;
+    }
+    &:last-of-type {
+      margin-left: 20px;
+    }
+  }
+  .paginator-btn {
+    @include square(28px);
+    margin: 0 1px;
+    border: 1px solid inherit;
+    border-radius: 5px;
+    &:hover {
+      border: 1px solid red;
+    }
+    &.active {
+      border: 1px solid red;
+      background-color: red;
+      color: white;
+    }
+  }
+}
