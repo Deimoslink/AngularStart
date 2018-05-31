@@ -1,25 +1,29 @@
-<div class="table-responsive">
-  <table class="table">
-    <thead class="words-table thead-dark">
-    <tr>
-      <th></th>
-      <th>Russian</th>
-      <th>English</th>
-      <th>Dutch</th>
-      <th>Part of speech</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let word of words">
-      <td><i class="icon-remove delete-button" (click)="deleteWordByKey(word.id)"></i></td>
-      <td>{{word.rus}}</td>
-      <td>{{word.eng}}</td>
-      <td>{{word.ned}}</td>
-      <td><span class="badge badge-primary">{{word.part}}</span></td>
-    </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="table-responsive col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+    <table class="table">
+      <thead class="words-table thead-dark">
+      <tr>
+        <th></th>
+        <th>Russian</th>
+        <th>English</th>
+        <th>Dutch</th>
+        <th>Part of speech</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let word of words">
+        <td><i class="icon-remove delete-button" (click)="deleteWordByKey(word.id)"></i></td>
+        <td>{{word.rus}}</td>
+        <td>{{word.eng}}</td>
+        <td>{{word.ned}}</td>
+        <td><span class="badge badge-primary">{{word.part}}</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+
 
 <app-paginator *ngIf="pagination.totalPages > 1"
                [currentPage]="pagination.currentPage"
