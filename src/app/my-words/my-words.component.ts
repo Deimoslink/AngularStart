@@ -8,27 +8,40 @@ import {ApiService} from '../shared/api/api.service';
 })
 export class MyWordsComponent implements OnInit {
   words = [];
+  pagination = {
+    size: 10,
+    currentPage: 1,
+    totalPages: 0
+  };
+
 
   constructor(private api: ApiService) { }
 
-  getWords() {
-    this.api.getWords().subscribe(res => {
-      this.words = res.map(word => {
-        return Object.assign({id: word.key}, word.payload.val());
-      })
+  showPerPage(num) {
+    this.pagination.size = num;
+    this.refreshRequest(1);
+  }
+
+  getWords(page = 1, size = this.pagination.size) {
+    this.api.getWords(page, size).subscribe(res => {
+      this.words = res.data;
+      this.pagination.totalPages = res.params.totalPages;
     });
   }
 
   deleteWordByKey(key) {
-    this.api.deleteWordByKey(key).subscribe(res => {})
+    this.api.deleteWordByKey(key).subscribe(res => {
+
+    })
   }
 
-  refreshNumber(page) {
-    console.log(page)
+  refreshRequest(page) {
+    this.pagination.currentPage = page;
+    this.getWords(page);
   }
 
   ngOnInit() {
-    this.getWords();
+    this.getWords(this.pagination.currentPage);
   }
 
 }

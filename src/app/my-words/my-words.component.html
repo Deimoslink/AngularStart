@@ -23,6 +23,7 @@
   </div>
 </div>
 
-<app-paginator [number]="1"
-               [totalPages]="10"
-               (refreshNumber)="refreshNumber($event)"></app-paginator>
+<app-paginator *ngIf="pagination.totalPages > 1"
+               [currentPage]="pagination.currentPage"
+               [totalPages]="pagination.totalPages"
+               (refreshCurrentPage)="refreshRequest($event)"></app-paginator>

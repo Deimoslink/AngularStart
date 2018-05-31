@@ -1,8 +1,16 @@
 <ul class="ul-style-reset paginator">
-  <li [ngClass]="{'hide' : first}" (click)="changePage(number - 1)"><a>Prev</a></li>
-  <li *ngFor="let page of pagesArray | slice: sliceBtnsFrom : sliceBtnsTo; let i = index;"
+  <li [ngClass]="{'hide' : first}"
+      class="paginator-edge-btn"
+      (click)="changePage(currentPage - 1)">
+    <a>Prev</a>
+  </li>
+  <li *ngFor="let page of pagesArray | slice: sliceBtnsFrom : sliceBtnsTo"
       (click)="changePage(page)"
       class="paginator-btn"
-      [ngClass]="{'active': page === number}"><a>{{page+1}}</a></li>
-  <li [ngClass]="{'hide' : last}" (click)="changePage(number + 1)"><a>Next</a></li>
+      [ngClass]="{'active': page === currentPage}"><a>{{page}}</a></li>
+  <li [ngClass]="{'hide' : last}"
+      class="paginator-edge-btn"
+      (click)="changePage(currentPage + 1)">
+    <a>Next</a>
+  </li>
 </ul>

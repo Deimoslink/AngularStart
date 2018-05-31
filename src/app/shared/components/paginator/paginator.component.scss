@@ -8,17 +8,16 @@ ul.ul-style-reset {
   }
 }
 
-ul {
+ul.paginator {
   @include show-flex(row, center);
-  margin: 0;
-  padding: 0;
+  margin: 20px 0;
   user-select: none;
   li {
     box-sizing: border-box;
     font-size: 14px;
     line-height: 28px;
     text-align: center;
-    color: red;
+    color: $purple;
     text-decoration: none;
     cursor: pointer;
     &.hide {
@@ -34,15 +33,23 @@ ul {
   .paginator-btn {
     @include square(28px);
     margin: 0 1px;
-    border: 1px solid inherit;
+    border: 1px solid white;
     border-radius: 5px;
     &:hover {
-      border: 1px solid red;
+      color: darken($purple, 15%);
+      border: 1px solid darken($purple, 15%);
     }
     &.active {
-      border: 1px solid red;
-      background-color: red;
+      border: 1px solid $purple;
+      background-color: $purple;
       color: white;
+      &:hover{
+        border: 1px solid darken($purple, 15%);
+        background-color: darken($purple, 15%);
+      }
     }
+  }
+  .paginator-edge-btn:hover {
+    color: darken($purple, 15%);
   }
 }

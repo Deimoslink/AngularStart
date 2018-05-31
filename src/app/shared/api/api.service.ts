@@ -7,6 +7,8 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class ApiService {
 
+  FUNCTIONS_URL = 'https://us-central1-testfirebaseproject-39110.cloudfunctions.net/';
+
   constructor(private http: HttpClient,
               private userService: UserService,
               private dbConnection: AngularFireDatabase) {
@@ -20,10 +22,19 @@ export class ApiService {
     return this.http.post(query, data);
   }
 
-  getWords():Observable<any> {
-    const userId = this.userService.getUserId();
-    const query = '/' + userId + '/words';
-    return this.dbConnection.list(query).snapshotChanges()
+  getWords(page?, size?):Observable<any> {
+    let query = this.FUNCTIONS_URL + 'get_words';
+    if (arguments.length) {
+      const params = [];
+      if (page) {
+        params.push('page=' + page);
+      }
+      if (size) {
+        params.push('size=' + size);
+      }
+      query = query + '?' + params.join('&');
+    }
+    return this.http.get(query);
   }
 
   deleteWordByKey(key):Observable<any> {
