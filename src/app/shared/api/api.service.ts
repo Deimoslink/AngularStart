@@ -23,7 +23,8 @@ export class ApiService {
   }
 
   getWords(page?, size?):Observable<any> {
-    let query = this.FUNCTIONS_URL + 'get_words';
+    const userId = this.userService.getUserId();
+    let query = this.FUNCTIONS_URL + 'get_words?userId=' + userId;
     if (arguments.length) {
       const params = [];
       if (page) {
@@ -32,7 +33,7 @@ export class ApiService {
       if (size) {
         params.push('size=' + size);
       }
-      query = query + '?' + params.join('&');
+      query = query + '&' + params.join('&');
     }
     return this.http.get(query);
   }

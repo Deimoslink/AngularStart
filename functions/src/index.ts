@@ -21,20 +21,25 @@ export const get_words = functions.https.onRequest((request, response) => {
       data: []
     };
 
+    let userId: string = '';
+
     request.url.split('?')
       .pop()
       .split('&')
       .map(param => {
         const key = param.split('=').shift();
-        const value = parseInt(param.split('=').pop());
+        const value = param.split('=').pop();
         if (responseParams[key]) {
-          responseParams[key] = value;
+          responseParams[key] = parseInt(value);
+        }
+        if (key === 'userId') {
+          userId = value;
         }
       });
 
 
     return admin.database()
-          .ref('/110100830308379008504/words')
+          .ref('/' + userId + '/words')
           .once('value', (snapshot) => {
             const data = Object.keys(snapshot.val()).map(key => {
               return Object.assign({id: key}, snapshot.val()[key]);
