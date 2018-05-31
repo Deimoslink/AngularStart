@@ -31,7 +31,7 @@ export class MyWordsComponent implements OnInit {
 
   deleteWordByKey(key) {
     this.api.deleteWordByKey(key).subscribe(res => {
-
+      this.getWords(this.pagination.currentPage);
     })
   }
 
