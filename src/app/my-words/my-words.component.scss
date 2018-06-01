@@ -1,7 +1,31 @@
+@import '~global.scss';
+
 .words-table {
   font-size: 0.6em;
 }
 .delete-button {
-  color: crimson;
+  color: $danger;
   cursor: pointer;
+}
+.edit-button {
+  color: $primary;
+  cursor: pointer;
+}
+.cancel-button {
+  color: $danger;
+  cursor: pointer;
+}
+.save-button {
+  color: $success;
+  cursor: pointer;
+  &.disabled {
+    color: $text-muted;
+  }
+}
+
+.table {
+  table-layout: fixed;
+  .btn-only-col {
+    width: 30px;
+  }
 }

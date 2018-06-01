@@ -30,10 +30,34 @@
         <label>Part of speech</label>
         <select class="form-control app-select"
                 formControlName="part">
-          <option *ngFor="let part of partsOfSpeech; let i = index" [value]="part">{{part}}</option>
+          <option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>
         </select>
       </div>
       <button class="btn btn-primary" type="submit" [disabled]="!addWordForm.valid">Add word</button>
+    </form>
+  </div>
+
+  <div class="row">
+    <form [formGroup]="addCategoryForm"
+          (ngSubmit)="saveNewCategory()"
+          class="add-word-form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+      <h4>Add word category</h4>
+      <div class="form-group">
+        <label for="categoryName">Category Name</label>
+        <input type="text"
+               class="form-control"
+               id="categoryName"
+               formControlName="categoryName">
+      </div>
+
+      <!--<div class="form-group">-->
+        <!--<label>Color</label>-->
+        <!--<select class="form-control app-select"-->
+                <!--formControlName="part">-->
+          <!--<option *ngFor="let part of partsOfSpeech; let i = index" [value]="part">{{part}}</option>-->
+        <!--</select>-->
+      <!--</div>-->
+      <button class="btn btn-primary" type="submit" [disabled]="!addCategoryForm.valid">Add category</button>
     </form>
   </div>
 </div>

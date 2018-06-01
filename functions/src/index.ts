@@ -37,7 +37,6 @@ export const get_words = functions.https.onRequest((request, response) => {
         }
       });
 
-
     return admin.database()
           .ref('/' + userId + '/words')
           .once('value', (snapshot) => {
@@ -51,6 +50,5 @@ export const get_words = functions.https.onRequest((request, response) => {
             responseData.data = [].concat(data).splice(startWith, endWith);
             response.send(responseData);
           })
-
   });
 });

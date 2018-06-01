@@ -1,10 +1,11 @@
-<div class="row">
+<form [formGroup]="editWordForm" class="row">
   <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 p-0">
     <div class="table-responsive">
       <table class="table">
         <thead class="words-table thead-dark">
         <tr>
-          <th></th>
+          <th class="btn-only-col"></th>
+          <th class="btn-only-col"></th>
           <th>Russian</th>
           <th>English</th>
           <th>Dutch</th>
@@ -12,19 +13,59 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let word of words">
-          <td><i class="icon-remove delete-button" (click)="deleteWordByKey(word.id)"></i></td>
-          <td>{{word.rus}}</td>
-          <td>{{word.eng}}</td>
-          <td>{{word.ned}}</td>
-          <td><span class="badge badge-primary">{{word.part}}</span></td>
+          <tr *ngFor="let word of words; let i = index">
+          <td>
+            <i [hidden]="editWord.id === word.id" class="icon-trash delete-button" (click)="deleteWordByKey(word.id)"></i>
+            <i [hidden]="editWord.id !== word.id" class="icon-remove cancel-button" (click)="leaveEditMode()"></i>
+          </td>
+          <td>
+            <i [hidden]="editWord.id === word.id" class="icon-edit edit-button" (click)="enterEditMode(word)"></i>
+            <i [hidden]="editWord.id !== word.id || editWordForm.valid"
+               class="icon-save save-button disabled"></i>
+            <i [hidden]="editWord.id !== word.id || editWordForm.invalid"
+               class="icon-save save-button"
+               (click)="saveEditedWord(i)"></i>
+          </td>
+          <td>
+            <span [hidden]="editWord.id === word.id">{{word.rus}}</span>
+            <input [hidden]="editWord.id !== word.id"
+                   class="form-control form-control-sm"
+                   type="text"
+                   formControlName="rus"
+                   [(ngModel)]="editWord.rus">
+          </td>
+          <td>
+            <span [hidden]="editWord.id === word.id">{{word.eng}}</span>
+            <input [hidden]="editWord.id !== word.id"
+                   class="form-control form-control-sm"
+                   type="text"
+                   formControlName="eng"
+                   [(ngModel)]="editWord.eng">
+          </td>
+          <td>
+            <span [hidden]="editWord.id === word.id">{{word.ned}}</span>
+            <input [hidden]="editWord.id !== word.id"
+                   class="form-control form-control-sm"
+                   type="text"
+                   formControlName="ned"
+                   [(ngModel)]="editWord.ned">
+          </td>
+          <td>
+            <span [hidden]="editWord.id === word.id"
+                  class="badge badge-primary">{{word.part}}</span>
+            <select [hidden]="editWord.id !== word.id"
+                    class="form-control form-control-sm"
+                    formControlName="part"
+                    [(ngModel)]="editWord.part">
+              <option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>
+            </select>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
-</div>
-
+</form>
 
 
 <app-paginator *ngIf="pagination.totalPages > 1"

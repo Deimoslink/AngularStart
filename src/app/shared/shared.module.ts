@@ -6,6 +6,7 @@ import {PipesModule} from './pipes/pipes.module';
 import {UserService} from './services/user.service';
 import {PaginatorComponent} from './components/paginator/paginator.component';
 import {CommonModule} from "@angular/common";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import {CommonModule} from "@angular/common";
   imports: [
     CommonModule,
     AuthModule,
-    PipesModule
+    PipesModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     HttpClient,
@@ -24,7 +27,9 @@ import {CommonModule} from "@angular/common";
   exports: [
     AuthModule,
     PipesModule,
-    PaginatorComponent
+    PaginatorComponent,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
