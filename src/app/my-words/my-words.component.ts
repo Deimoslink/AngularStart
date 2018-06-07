@@ -1,13 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Subject} from "rxjs/Rx";
+import {switchMap, takeUntil} from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-my-words',
   templateUrl: './my-words.component.html',
   styleUrls: ['./my-words.component.scss']
 })
-export class MyWordsComponent implements OnInit {
+export class MyWordsComponent implements OnInit, OnDestroy {
+  @HostListener('click', ['$event.target'])
+  public onEditBlur(targetElement: HTMLElement) {
+    if (targetElement.tagName !== 'INPUT' && targetElement.tagName !== 'I' && targetElement.tagName !== 'SELECT'  && targetElement.tagName !== 'OPTION') {
+      this.leaveEditMode();
+    }
+  }
+  private requestSubject = new Subject<any>();
+  private ngUnsubscribe = new Subject<void>();
+
   editWordForm: FormGroup;
   words = [];
   pagination = {
@@ -24,7 +35,9 @@ export class MyWordsComponent implements OnInit {
   };
   partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
 
-  constructor(private api: ApiService, private fb: FormBuilder) {
+  constructor(private api: ApiService,
+              private fb: FormBuilder,
+              private eRef: ElementRef,) {
     this.editWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
         Validators.required),
@@ -43,10 +56,7 @@ export class MyWordsComponent implements OnInit {
   }
 
   getWords(page = 1, size = this.pagination.size) {
-    this.api.getWords(page, size).subscribe(res => {
-      this.words = res.data;
-      this.pagination.totalPages = res.params.totalPages;
-    });
+    return this.api.getWords(page, size);
   }
 
   deleteWordByKey(key) {
@@ -56,9 +66,8 @@ export class MyWordsComponent implements OnInit {
   }
 
   refreshRequest(page) {
-    this.pagination.currentPage = page;
-    this.getWords(page);
-  }
+    this.requestSubject.next(page);
+  };
 
   enterEditMode(word) {
     this.editWord = Object.assign({}, word);
@@ -84,7 +93,19 @@ export class MyWordsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getWords(this.pagination.currentPage);
+    this.requestSubject.pipe(
+      switchMap(page => this.getWords(page, this.pagination.size)),
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe(res => {
+        this.words = res.data;
+        this.pagination.totalPages = res.params.totalPages;
+    });
+    this.requestSubject.next(this.pagination.currentPage);
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }
