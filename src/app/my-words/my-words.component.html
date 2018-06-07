@@ -13,7 +13,8 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let word of words; let i = index">
+          <ng-container *ngFor="let word of words; let i = index">
+            <tr [ngClass]="{active: editWord.id === word.id}">
               <td>
                 <i [hidden]="editWord.id === word.id" class="icon-trash delete-button" (click)="deleteWordByKey(word.id)"></i>
                 <i [hidden]="editWord.id !== word.id" class="icon-remove cancel-button" (click)="leaveEditMode()"></i>
@@ -61,6 +62,15 @@
                 </select>
               </td>
             </tr>
+            <tr [ngClass]="{active: editWord.id === word.id}">
+              <td>
+                <i class="icon-plus save-button"></i>
+              </td>
+              <td colspan="5">
+                <span *ngFor="let category of categories" class="badge badge-success category-badge">{{category.categoryName}}</span>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>

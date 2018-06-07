@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subject} from "rxjs/Rx";
@@ -11,16 +11,16 @@ import {switchMap, takeUntil} from "rxjs/internal/operators";
 })
 export class MyWordsComponent implements OnInit, OnDestroy {
   @HostListener('click', ['$event.target'])
-  public onEditBlur(targetElement: HTMLElement) {
+  private onEditBlur(targetElement: HTMLElement) {
     if (targetElement.tagName !== 'INPUT' && targetElement.tagName !== 'I' && targetElement.tagName !== 'SELECT'  && targetElement.tagName !== 'OPTION') {
       this.leaveEditMode();
     }
   }
   private requestSubject = new Subject<any>();
   private ngUnsubscribe = new Subject<void>();
-
+  words;
+  categories;
   editWordForm: FormGroup;
-  words = [];
   pagination = {
     size: 10,
     currentPage: 1,
@@ -36,8 +36,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
 
   constructor(private api: ApiService,
-              private fb: FormBuilder,
-              private eRef: ElementRef,) {
+              private fb: FormBuilder) {
     this.editWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
         Validators.required),
@@ -57,6 +56,14 @@ export class MyWordsComponent implements OnInit, OnDestroy {
 
   getWords(page = 1, size = this.pagination.size) {
     return this.api.getWords(page, size);
+  }
+
+  getCategories() {
+    this.api.getCategories().subscribe(res => {
+      this.categories = res.map(snapshot => {
+        return Object.assign({id: snapshot.key}, snapshot.payload.val());
+      });
+    })
   }
 
   deleteWordByKey(key) {
@@ -101,6 +108,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
         this.pagination.totalPages = res.params.totalPages;
     });
     this.requestSubject.next(this.pagination.currentPage);
+    this.getCategories();
   }
 
   ngOnDestroy() {
