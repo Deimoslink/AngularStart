@@ -64,10 +64,10 @@
             </tr>
             <tr [ngClass]="{active: editWord.id === word.id}">
               <td>
-                <i class="icon-plus save-button"></i>
+                <i class="icon-plus save-button" (click)="open('addCategories', word)"></i>
               </td>
               <td colspan="5">
-                <span *ngFor="let category of categories" class="badge badge-success category-badge">{{category.categoryName}}</span>
+                <!--<span *ngFor="let category of categories" class="badge badge-success category-badge">{{category.categoryName}}</span>-->
               </td>
             </tr>
           </ng-container>

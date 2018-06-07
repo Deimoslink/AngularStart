@@ -3,6 +3,8 @@ import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subject} from "rxjs/Rx";
 import {switchMap, takeUntil} from "rxjs/internal/operators";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalAComponent} from "../shared/modals/modal-a/modal-a.component";
 
 @Component({
   selector: 'app-my-words',
@@ -36,7 +38,8 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
 
   constructor(private api: ApiService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private modalService: NgbModal) {
     this.editWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
         Validators.required),
@@ -47,6 +50,15 @@ export class MyWordsComponent implements OnInit, OnDestroy {
       'part': new FormControl({value: null, disabled: false},
         Validators.required)
     });
+  }
+
+  modals = {
+    addCategories: ModalAComponent
+  };
+
+  open(modalName, word) {
+    const modalRef = this.modalService.open(this.modals[modalName], { size: 'lg' });
+    modalRef.componentInstance.data = {categories: this.categories, word: word};
   }
 
   showPerPage(num) {

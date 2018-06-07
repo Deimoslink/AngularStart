@@ -8,7 +8,7 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./modal-a.component.scss']
 })
 export class ModalAComponent implements OnInit {
-  @Input() name;
+  @Input() data;
   user;
   constructor(public activeModal: NgbActiveModal,
               private userService: UserService) {}
