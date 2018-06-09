@@ -80,7 +80,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
 
   deleteWordByKey(key) {
     this.api.deleteWordByKey(key).subscribe(res => {
-      this.getWords(this.pagination.currentPage);
+      this.refreshRequest(this.pagination.currentPage);
     })
   }
 
@@ -116,8 +116,11 @@ export class MyWordsComponent implements OnInit, OnDestroy {
       switchMap(page => this.getWords(page, this.pagination.size)),
       takeUntil(this.ngUnsubscribe)
     ).subscribe(res => {
-        this.words = res.data;
-        this.pagination.totalPages = res.params.totalPages;
+      res.data.map(el => {
+        el.categories = el.categories === `'null'` ? {} : el.categories;
+      });
+      this.words = res.data;
+      this.pagination.totalPages = res.params.totalPages;
     });
     this.requestSubject.next(this.pagination.currentPage);
     this.getCategories();

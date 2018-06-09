@@ -5,7 +5,12 @@
   </button>
 </div>
 <div class="modal-body">
-  <span *ngFor="let category of data.categories" class="badge badge-success category-badge">{{category.categoryName}}</span>
+  <p>{{categoriesMap | json}}</p>
+  <p>{{data.word.categories | json}}</p>
+  <span *ngFor="let category of data.categories" class="badge badge-success category-badge">
+    <input type="checkbox" [ngModel]="categoriesMap[category.id]">
+    <label (click)="toggleCategory(category.id)">{{category.categoryName}}</label>
+  </span>
 </div>
 <!--<div class="modal-footer">-->
   <!--<button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>-->

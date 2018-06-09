@@ -67,7 +67,9 @@
                 <i class="icon-plus save-button" (click)="open('addCategories', word)"></i>
               </td>
               <td colspan="5">
-                <!--<span *ngFor="let category of categories" class="badge badge-success category-badge">{{category.categoryName}}</span>-->
+                <ng-container *ngFor="let category of categories">
+                  <span *ngIf="word.categories[category.id]" class="badge badge-success category-badge">{{category.categoryName}}</span>
+                </ng-container>
               </td>
             </tr>
           </ng-container>

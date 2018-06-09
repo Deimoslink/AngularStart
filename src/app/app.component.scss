@@ -1,5 +1,50 @@
+@import '~global.scss';
+
 nav a {
   cursor: pointer;
   margin: 10px;
   font-size: 0.7em;
+}
+
+/*CHECKBOX CUSTOMIZATION FOR DIFFERENT BROWSERS*/
+input[type="checkbox"] {
+  display: none;
+  + label {
+    margin-bottom: 1px;
+    cursor: pointer;
+    &::before {
+      @include square(13px);
+      content: '';
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 0 5px 0 0;
+      padding: 1px 0;
+      border: 1px solid $dark;
+      border-radius: 3px;
+      font-size: 10px;
+      text-align: center;
+      vertical-align: middle;
+      font-family: FontAwesome;
+      background-color: white;
+    }
+    &:hover, &:focus {
+      &::before {
+        border: 1px solid $dark;
+      }
+    }
+  }
+  &:hover, &:focus {
+    + label {
+      &::before {
+        border: 1px solid $dark;
+      }
+    }
+  }
+  &:checked + label {
+    &::before {
+      content: '\f00c';
+      background-color: white;
+      color: $dark;
+    }
+  }
 }

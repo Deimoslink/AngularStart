@@ -17,6 +17,7 @@ export class ApiService {
   }
 
   saveNewWord(newWord) {
+    newWord = Object.assign({categories: 'null'}, newWord);
     const data = JSON.stringify(newWord);
     const userId = this.userService.getUserId();
     const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/words.json';

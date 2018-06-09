@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {distinctUntilChanged, takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import {AuthenticationService} from './shared/auth/authentication.service';
@@ -6,7 +6,8 @@ import {AuthenticationService} from './shared/auth/authentication.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy {
   private componentAlive: Subject<void> = new Subject();
