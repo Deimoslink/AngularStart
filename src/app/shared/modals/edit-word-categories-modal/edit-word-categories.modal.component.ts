@@ -4,11 +4,11 @@ import {UserService} from "../../services/user.service";
 import {ApiService} from "../../api/api.service";
 
 @Component({
-  selector: 'app-modal-a',
-  templateUrl: './modal-a.component.html',
-  styleUrls: ['./modal-a.component.scss']
+  selector: 'app-edit-word-categories-modal',
+  templateUrl: './edit-word-categories.modal.component.html',
+  styleUrls: ['./edit-word-categories.modal.component.scss']
 })
-export class ModalAComponent implements OnInit {
+export class EditWordCategoriesModalComponent implements OnInit {
   @Input() data;
   @Output() updateCategories = new EventEmitter<any>();
   categoriesMap;

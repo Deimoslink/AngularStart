@@ -1,10 +1,10 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Subject} from "rxjs/Rx";
-import {switchMap, takeUntil} from "rxjs/internal/operators";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ModalAComponent} from "../shared/modals/modal-a/modal-a.component";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs/Rx';
+import {switchMap, takeUntil} from 'rxjs/internal/operators';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EditWordCategoriesModalComponent} from '../shared/modals/edit-word-categories-modal/edit-word-categories.modal.component';
 
 @Component({
   selector: 'app-my-words',
@@ -53,7 +53,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   modals = {
-    addCategories: ModalAComponent
+    addCategories: EditWordCategoriesModalComponent
   };
 
   open(modalName, word, index) {

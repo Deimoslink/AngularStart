@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ModalAComponent} from './modal-a.component';
+import {EditWordCategoriesModalComponent} from './modal-a.component';
 import {ModalsModule} from '../modals.module';
 import {TestingDepsModule} from '../../testing-deps/testing-deps.module';
 
-describe('ModalAComponent', () => {
-  let component: ModalAComponent;
-  let fixture: ComponentFixture<ModalAComponent>;
+describe('EditWordCategoriesModalComponent', () => {
+  let component: EditWordCategoriesModalComponent;
+  let fixture: ComponentFixture<EditWordCategoriesModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe('ModalAComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalAComponent);
+    fixture = TestBed.createComponent(EditWordCategoriesModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

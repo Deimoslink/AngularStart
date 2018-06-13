@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ModalAComponent} from "./modal-a/modal-a.component";
-import {ModalBComponent} from './modal-b/modal-b.component';
-import {SharedModule} from "../shared.module";
+import {SharedModule} from '../shared.module';
+import {EditWordCategoriesModalComponent} from './edit-word-categories-modal/edit-word-categories.modal.component';
 
 @NgModule({
   imports: [
@@ -10,12 +9,10 @@ import {SharedModule} from "../shared.module";
     SharedModule
   ],
   declarations: [
-    ModalAComponent,
-    ModalBComponent
+    EditWordCategoriesModalComponent
   ],
   entryComponents: [
-    ModalAComponent,
-    ModalBComponent
+    EditWordCategoriesModalComponent
   ]
 })
 export class ModalsModule { }
