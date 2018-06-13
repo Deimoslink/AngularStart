@@ -56,9 +56,12 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     addCategories: ModalAComponent
   };
 
-  open(modalName, word) {
+  open(modalName, word, index) {
     const modalRef = this.modalService.open(this.modals[modalName], { size: 'lg' });
     modalRef.componentInstance.data = {categories: this.categories, word: word};
+    modalRef.componentInstance.updateCategories.subscribe(($e) => {
+      this.words[index].categories = $e;
+    })
   }
 
   showPerPage(num) {
@@ -109,6 +112,12 @@ export class MyWordsComponent implements OnInit, OnDestroy {
       ned: '',
       part: ''
     };
+  }
+
+  removeCategoryFromWord(wordId, categoryId, index) {
+    this.api.deleteCategoryFromWord(wordId, categoryId).subscribe(res => {
+      this.words[index].categories[categoryId] = false;
+    });
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from "../../services/user.service";
 import {ApiService} from "../../api/api.service";
@@ -10,6 +10,7 @@ import {ApiService} from "../../api/api.service";
 })
 export class ModalAComponent implements OnInit {
   @Input() data;
+  @Output() updateCategories = new EventEmitter<any>();
   categoriesMap;
   initialCategories;
   user;
@@ -20,7 +21,10 @@ export class ModalAComponent implements OnInit {
   toggleCategory(categoryId) {
     this.categoriesMap[categoryId] = !this.categoriesMap[categoryId];
     this.apiService.updateWordByKey(this.data.word.id, {categories: this.categoriesMap})
-      .subscribe(res => this.categoriesMap = res.categories);
+      .subscribe(res => {
+        this.categoriesMap = res.categories;
+        this.updateCategories.emit(this.categoriesMap);
+      });
   }
 
   mapCategories() {

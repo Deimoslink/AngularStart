@@ -53,11 +53,16 @@ export class ApiService {
     return this.http.delete(query);
   }
 
+  deleteCategoryFromWord(wordId, categoryId) {
+    const userId = this.userService.getUserId();
+    const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/words/' + wordId + '/categories/' + categoryId + '.json';
+    return this.http.delete(query);
+  }
+
   updateWordByKey(key, value): Observable<any> {
     const data = JSON.stringify(value);
     const userId = this.userService.getUserId();
     const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/words/' + key + '.json';
-    console.log(query, value);
     return this.http.patch(query, data);
   }
 
