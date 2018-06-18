@@ -1,0 +1,13 @@
+@import '~global.scss';
+
+.categories-container {
+  padding: 20px;
+  .category-badge-big {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    i {
+      cursor: pointer;
+    }
+  }
+}

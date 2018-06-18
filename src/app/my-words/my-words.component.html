@@ -68,7 +68,9 @@
               </td>
               <td colspan="5">
                 <ng-container *ngFor="let category of categories">
-                  <span *ngIf="word.categories[category.id]" class="badge badge-success category-badge">
+                  <span *ngIf="word.categories[category.id]"
+                        class="badge badge-success category-badge"
+                        [ngStyle]="{'background-color': category.color}">
                     {{category.categoryName}}
                     <i [hidden]="editWord.id !== word.id" class="icon-remove category-remove-button" (click)="removeCategoryFromWord(word.id, category.id, i)"></i>
                   </span>

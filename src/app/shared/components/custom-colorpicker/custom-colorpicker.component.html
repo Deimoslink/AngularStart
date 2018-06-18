@@ -1,0 +1,13 @@
+<span class="app-custom-colorpicker">
+  <input type="text"
+         (focus)="blurInput($event)"
+         [ngStyle]="{'background-color': selectedColor}"
+         [ngClass]="{'has-error': hasError}">
+  <i class="icon-tint" (click)="showOptions()" [ngStyle]="{'color': selectedColor ? 'white' : '#333'}"></i>
+  <ul [hidden]="!optionsVisible">
+    <li *ngFor="let color of colors; let i = index;"
+        [ngStyle]="{'background-color': color}"
+        [ngClass]="{'selected': color === selectedColor}"
+        (click)="setColor(color)"></li>
+  </ul>
+</span>

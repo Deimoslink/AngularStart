@@ -5,7 +5,9 @@
   </button>
 </div>
 <div class="modal-body">
-  <span *ngFor="let category of data.categories" class="badge badge-success category-badge">
+  <span *ngFor="let category of data.categories"
+        class="badge badge-success category-badge"
+        [ngStyle]="{'background-color': category.color}">
     <input type="checkbox" [ngModel]="categoriesMap[category.id]">
     <label (click)="toggleCategory(category.id)">{{category.categoryName}}</label>
   </span>

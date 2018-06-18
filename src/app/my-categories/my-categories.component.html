@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="categories-container col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+      <h4>Manage word categories</h4>
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <input type="text" class="form-control" #filterValue (keyup)="0">
+          </div>
+          <span *ngFor="let category of categories | searchByObjKeys : filterValue.value : ['categoryName']; let i = index"
+                [ngStyle]="{'background-color': category.color}"
+                class="badge badge-success category-badge-big">
+                {{category.categoryName}}
+                <app-custom-colorpicker [colors]="colors" [selectedColor]="category.color" (transferColor)="repaintCategory(category.id, $event)"></app-custom-colorpicker>
+                <i class="icon-trash category-delete-button" (click)="removeCategory(category.id)"></i>
+          </span>
+          <span *ngIf="!categories.length">Not a single category has been added yet</span>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+

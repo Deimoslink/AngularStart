@@ -7,10 +7,12 @@ import {UserService} from './services/user.service';
 import {PaginatorComponent} from './components/paginator/paginator.component';
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CustomColorpickerComponent} from "./components/custom-colorpicker/custom-colorpicker.component";
 
 @NgModule({
   declarations: [
-    PaginatorComponent
+    PaginatorComponent,
+    CustomColorpickerComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     AuthModule,
     PipesModule,
     PaginatorComponent,
+    CustomColorpickerComponent,
     FormsModule,
     ReactiveFormsModule
   ]

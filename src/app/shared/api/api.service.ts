@@ -3,10 +3,12 @@ import {HttpClient} from '@angular/common/http';
 import {UserService} from "../services/user.service";
 import {AngularFireDatabase} from "angularfire2/database";
 import {Observable} from 'rxjs/Rx';
+import {COLORS} from "../constants";
 
 
 @Injectable()
 export class ApiService {
+  colors = COLORS;
 
   FUNCTIONS_URL = 'https://us-central1-testfirebaseproject-39110.cloudfunctions.net/';
 
@@ -14,6 +16,10 @@ export class ApiService {
               private userService: UserService,
               private dbConnection: AngularFireDatabase) {
 
+  }
+
+  getRandomColor() {
+    return this.colors[Math.floor(Math.random() * this.colors.length)];
   }
 
   saveNewWord(newWord) {
@@ -25,7 +31,7 @@ export class ApiService {
   }
 
   saveNewCategory(newCategory) {
-    const data = JSON.stringify(newCategory);
+    const data = JSON.stringify(Object.assign({color: this.getRandomColor()}, newCategory));
     const userId = this.userService.getUserId();
     const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/categories.json';
     return this.http.post(query, data);
@@ -51,6 +57,19 @@ export class ApiService {
     const userId = this.userService.getUserId();
     const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/words/' + key + '.json';
     return this.http.delete(query);
+  }
+
+  deleteCategoryByKey(key): Observable<any> {
+    const userId = this.userService.getUserId();
+    const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/categories/' + key + '.json';
+    return this.http.delete(query);
+  }
+
+  repaintCategoryByKey(key, color): Observable<any> {
+    const data = JSON.stringify({color: color});
+    const userId = this.userService.getUserId();
+    const query = 'https://testfirebaseproject-39110.firebaseio.com/' + userId + '/categories/' + key + '.json';
+    return this.http.patch(query, data);
   }
 
   deleteCategoryFromWord(wordId, categoryId) {

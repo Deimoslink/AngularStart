@@ -1,0 +1,56 @@
+@import '~global.scss';
+
+.app-custom-colorpicker {
+  position: relative;
+  input {
+    @include size(25px, 25px);
+    box-sizing: border-box;
+    padding: 10px 4px;
+    border: 0;
+    font-size: 17px;
+    cursor: pointer;
+    &::-webkit-input-placeholder {
+      color: #333;
+    }
+    &:focus {
+      padding-top: 11px;
+      border: 0;
+      border-bottom: 2px solid red;
+      outline: none;
+    }
+    &.has-error {
+      padding-top: 11px;
+      border-bottom: 2px solid crimson;
+    }
+    + i {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      cursor: pointer;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    box-sizing: border-box;
+    top: 27px;
+    right: 5px;
+    width: 25px;
+    background-color: white;
+    border: 1px solid #DAD8D8;
+    font-size: 15px;
+    z-index: 2;
+    li {
+      box-sizing: border-box;
+      padding: 0 10px;
+      height: 25px;
+      list-style: none;
+      line-height: 25px;
+      cursor: pointer;
+      &.selected, &:hover {
+        border: 2px solid #333;
+      }
+    }
+  }
+}
