@@ -126,7 +126,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe)
     ).subscribe(res => {
       res.data.map(el => {
-        el.categories = el.categories === `'null'` ? {} : el.categories;
+        el.categories = el.categories ? el.categories : {};
       });
       this.words = res.data;
       this.pagination.totalPages = res.params.totalPages;

@@ -18,17 +18,26 @@ export class EditWordCategoriesModalComponent implements OnInit {
               private apiService: ApiService,
               private userService: UserService) {};
 
+  falseToNull(obj) {
+    Object.keys(obj).map(key => {
+      if (obj[key] === false) {
+        obj[key] = null;
+      }
+    });
+  }
+
   toggleCategory(categoryId) {
     this.categoriesMap[categoryId] = !this.categoriesMap[categoryId];
+    this.falseToNull(this.categoriesMap);
     this.apiService.updateWordByKey(this.data.word.id, {categories: this.categoriesMap})
       .subscribe(res => {
-        this.categoriesMap = res.categories;
+        this.categoriesMap = res.categories ? res.categories : {};
         this.updateCategories.emit(this.categoriesMap);
       });
   }
 
   mapCategories() {
-    this.initialCategories = this.data.word.categories;
+    this.initialCategories = this.data.word.categories ? this.data.word.categories : [];
     let bufferObj: any = {};
     this.data.categories.map(category => {
       bufferObj[category['id']] = !!this.initialCategories[category['id']];

@@ -4,7 +4,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
+<div class="modal-body" *ngIf="data.categories">
   <span *ngFor="let category of data.categories"
         class="badge badge-success category-badge"
         [ngStyle]="{'background-color': category.color}">

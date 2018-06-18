@@ -68,7 +68,7 @@
               </td>
               <td colspan="5">
                 <ng-container *ngFor="let category of categories">
-                  <span *ngIf="word.categories[category.id]"
+                  <span *ngIf="word.categories && word.categories[category.id]"
                         class="badge badge-success category-badge"
                         [ngStyle]="{'background-color': category.color}">
                     {{category.categoryName}}
