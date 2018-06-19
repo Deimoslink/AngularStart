@@ -14,7 +14,8 @@ export const get_words = functions.https.onRequest((request, response) => {
     const responseParams = {
       page: 1,
       totalPages: 1,
-      size: 5
+      size: 5,
+      totalElements: 1
     };
     const responseData = {
       params: responseParams,
@@ -22,6 +23,7 @@ export const get_words = functions.https.onRequest((request, response) => {
     };
 
     let userId: string = '';
+    let categories = [];
 
     request.url.split('?')
       .pop()
@@ -35,15 +37,27 @@ export const get_words = functions.https.onRequest((request, response) => {
         if (key === 'userId') {
           userId = value;
         }
+        if (key === 'categories') {
+          categories = value.split(';');
+        }
       });
 
     return admin.database()
           .ref('/' + userId + '/words')
           .once('value', (snapshot) => {
-            const data = Object.keys(snapshot.val()).map(key => {
+            let data = Object.keys(snapshot.val()).map(key => {
               return Object.assign({id: key}, snapshot.val()[key]);
             });
+            if (categories.length) {
+              responseParams['categories'] = categories;
+              data = data.filter(el => {
+                return categories.some(cat => {
+                  return el.categories[cat]
+                });
+              });
+            }
             responseParams.totalPages = Math.ceil(data.length / responseParams.size);
+            responseParams.totalElements = data.length;
             responseParams.page = responseParams.page > responseParams.totalPages ? responseParams.totalPages : responseParams.page;
             const startWith = (responseParams.page - 1) * responseParams.size;
             const endWith = responseParams.size;
@@ -52,3 +66,5 @@ export const get_words = functions.https.onRequest((request, response) => {
           })
   });
 });
+
+// https://us-central1-testfirebaseproject-39110.cloudfunctions.net/get_words?userId=110100830308379008504
