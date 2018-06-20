@@ -24,6 +24,7 @@ export const get_words = functions.https.onRequest((request, response) => {
 
     let userId: string = '';
     let categories = [];
+    let random = false;
 
     request.url.split('?')
       .pop()
@@ -39,6 +40,9 @@ export const get_words = functions.https.onRequest((request, response) => {
         }
         if (key === 'categories') {
           categories = value.split(';');
+        }
+        if (key === 'random') {
+          random = true;
         }
       });
 
@@ -56,13 +60,17 @@ export const get_words = functions.https.onRequest((request, response) => {
                 });
               });
             }
-            responseParams.totalPages = Math.ceil(data.length / responseParams.size);
             responseParams.totalElements = data.length;
-            responseParams.page = responseParams.page > responseParams.totalPages ? responseParams.totalPages : responseParams.page;
-            const startWith = (responseParams.page - 1) * responseParams.size;
-            const endWith = responseParams.size;
-            responseData.data = [].concat(data).splice(startWith, endWith);
-            response.send(responseData);
+            if (random) {
+              response.send(data[Math.floor(Math.random() * data.length)]);
+            } else {
+              responseParams.totalPages = Math.ceil(data.length / responseParams.size);
+              responseParams.page = responseParams.page > responseParams.totalPages ? responseParams.totalPages : responseParams.page;
+              const startWith = (responseParams.page - 1) * responseParams.size;
+              const endWith = responseParams.size;
+              responseData.data = [].concat(data).splice(startWith, endWith);
+              response.send(responseData);
+            }
           })
   });
 });

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AddWordComponent} from './add-word.component';
 import {RouterModule, Routes} from '@angular/router';
 import {LoggedInGuard} from '../shared/auth/auth-guards';
-import {SharedModule} from "../shared/shared.module";
+import {SharedModule} from '../shared/shared.module';
 
 
 const routes: Routes = [

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from "../../services/user.service";
-import {ApiService} from "../../api/api.service";
+import {UserService} from '../../services/user.service';
+import {ApiService} from '../../api/api.service';
 
 @Component({
   selector: 'app-edit-word-categories-modal',
@@ -14,9 +14,10 @@ export class EditWordCategoriesModalComponent implements OnInit {
   categoriesMap;
   initialCategories;
   user;
+
   constructor(public activeModal: NgbActiveModal,
               private apiService: ApiService,
-              private userService: UserService) {};
+              private userService: UserService) {}
 
   falseToNull(obj) {
     Object.keys(obj).map(key => {
@@ -38,7 +39,7 @@ export class EditWordCategoriesModalComponent implements OnInit {
 
   mapCategories() {
     this.initialCategories = this.data.word.categories ? this.data.word.categories : [];
-    let bufferObj: any = {};
+    const bufferObj: any = {};
     this.data.categories.map(category => {
       bufferObj[category['id']] = !!this.initialCategories[category['id']];
     });

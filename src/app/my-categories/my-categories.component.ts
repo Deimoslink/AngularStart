@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../shared/api/api.service";
-import {COLORS} from "../shared/constants";
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from '../shared/api/api.service';
+import {COLORS} from '../shared/constants';
 
 @Component({
   selector: 'app-my-categories',
@@ -29,7 +29,7 @@ export class MyCategoriesComponent implements OnInit {
       this.categories = res.map(snapshot => {
         return Object.assign({id: snapshot.key}, snapshot.payload.val());
       });
-    })
+    });
   }
 
 }

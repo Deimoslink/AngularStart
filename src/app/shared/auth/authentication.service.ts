@@ -3,7 +3,7 @@ import {Subject} from 'rxjs/Subject';
 import {UserService} from '../services/user.service';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -55,6 +55,6 @@ export class AuthenticationService {
 
   isAuthenticated(): boolean {
     return this.authenticated;
-  };
+  }
 
 }

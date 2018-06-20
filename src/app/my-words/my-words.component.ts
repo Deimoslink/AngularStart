@@ -1,10 +1,11 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
 import {switchMap, takeUntil} from 'rxjs/internal/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditWordCategoriesModalComponent} from '../shared/modals/edit-word-categories-modal/edit-word-categories.modal.component';
+import {PARTS_OF_SPEECH} from '../shared/constants';
 
 @Component({
   selector: 'app-my-words',
@@ -12,12 +13,6 @@ import {EditWordCategoriesModalComponent} from '../shared/modals/edit-word-categ
   styleUrls: ['./my-words.component.scss']
 })
 export class MyWordsComponent implements OnInit, OnDestroy {
-  @HostListener('click', ['$event.target'])
-  private onEditBlur(targetElement: HTMLElement) {
-    if (targetElement.tagName !== 'INPUT' && targetElement.tagName !== 'I' && targetElement.tagName !== 'SELECT'  && targetElement.tagName !== 'OPTION') {
-      this.leaveEditMode();
-    }
-  }
   private requestSubject = new Subject<any>();
   private ngUnsubscribe = new Subject<void>();
   words;
@@ -35,7 +30,20 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     ned: '',
     part: ''
   };
-  partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
+  modals = {
+    addCategories: EditWordCategoriesModalComponent
+  };
+  partsOfSpeech = PARTS_OF_SPEECH;
+
+  @HostListener('click', ['$event.target'])
+  private onEditBlur(targetElement: HTMLElement) {
+    if (targetElement.tagName !== 'INPUT' &&
+        targetElement.tagName !== 'I' &&
+        targetElement.tagName !== 'SELECT' &&
+        targetElement.tagName !== 'OPTION') {
+      this.leaveEditMode();
+    }
+  }
 
   constructor(private api: ApiService,
               private fb: FormBuilder,
@@ -52,16 +60,12 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     });
   }
 
-  modals = {
-    addCategories: EditWordCategoriesModalComponent
-  };
-
   open(modalName, word, index) {
     const modalRef = this.modalService.open(this.modals[modalName], { size: 'lg' });
     modalRef.componentInstance.data = {categories: this.categories, word: word};
     modalRef.componentInstance.updateCategories.subscribe(($e) => {
       this.words[index].categories = $e;
-    })
+    });
   }
 
   showPerPage(num) {
@@ -78,18 +82,18 @@ export class MyWordsComponent implements OnInit, OnDestroy {
       this.categories = res.map(snapshot => {
         return Object.assign({id: snapshot.key}, snapshot.payload.val());
       });
-    })
+    });
   }
 
   deleteWordByKey(key) {
     this.api.deleteWordByKey(key).subscribe(res => {
       this.refreshRequest(this.pagination.currentPage);
-    })
+    });
   }
 
   refreshRequest(page) {
     this.requestSubject.next(page);
-  };
+  }
 
   enterEditMode(word) {
     this.editWord = Object.assign({}, word);

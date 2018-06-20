@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LoggedInGuard} from './shared/auth/auth-guards';
-import {MainComponent} from "./main/main.component";
+import {MainComponent} from './main/main.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent, canActivate: [LoggedInGuard]},

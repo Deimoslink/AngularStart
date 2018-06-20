@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {distinctUntilChanged, takeUntil} from "rxjs/operators";
-import {Subject} from "rxjs/Subject";
+import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs/Subject';
 import {AuthenticationService} from './shared/auth/authentication.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.authenticated = change;
         this.changeDetector.detectChanges();
       }
-    )
+    );
   }
 
   ngOnDestroy() {

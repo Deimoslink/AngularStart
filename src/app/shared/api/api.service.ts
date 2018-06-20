@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {UserService} from "../services/user.service";
-import {AngularFireDatabase} from "angularfire2/database";
-import {Observable} from 'rxjs/Rx';
-import {COLORS} from "../constants";
+import {UserService} from '../services/user.service';
+import {AngularFireDatabase} from 'angularfire2/database';
+import {Observable} from 'rxjs/Observable';
+import {COLORS} from '../constants';
 
 
 @Injectable()
@@ -49,6 +49,16 @@ export class ApiService {
       }
       query = query + '&' + params.join('&');
     }
+    return this.http.get(query);
+  }
+
+  getRandomWord(categories?): Observable<any> {
+    const userId = this.userService.getUserId();
+    let query = this.FUNCTIONS_URL + 'get_words?userId=' + userId;
+    if (categories && categories.length) {
+      query = query + '&categories=' + categories.join(';');
+    }
+    query = query + '&random';
     return this.http.get(query);
   }
 

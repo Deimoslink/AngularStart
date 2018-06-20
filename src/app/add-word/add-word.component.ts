@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {PARTS_OF_SPEECH} from '../shared/constants';
 
 @Component({
   selector: 'app-add-word',
@@ -10,7 +11,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class AddWordComponent implements OnInit {
   addWordForm: FormGroup;
   addCategoryForm: FormGroup;
-  partsOfSpeech = ['pronoun', 'noun', 'verb', 'adjective', 'adverb', 'subordinate', 'preposition'];
+  partsOfSpeech = PARTS_OF_SPEECH;
 
   constructor(private fb: FormBuilder, private api: ApiService) {
     this.addWordForm = fb.group({
@@ -32,14 +33,14 @@ export class AddWordComponent implements OnInit {
 
   saveNewWord() {
     this.api.saveNewWord(this.addWordForm.value)
-      .subscribe(res => {
+      .subscribe(() => {
         this.addWordForm.reset();
       });
   }
 
   saveNewCategory() {
     this.api.saveNewCategory(this.addCategoryForm.value)
-      .subscribe(res => {
+      .subscribe(() => {
         this.addCategoryForm.reset();
       });
   }

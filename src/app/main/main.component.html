@@ -1,2 +1,77 @@
+<div class="container">
+  <div class="row">
+    <form [formGroup]="checkWordForm"
+          class="check-word-form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+      <h4>Test your knowledge</h4>
+      <div class="form-group">
+        <label for="russianWord">Russian</label>
+        <input type="text"
+               class="form-control"
+               id="russianWord"
+               [ngClass]="{'is-invalid': checkDone && !errorStatus.rus, 'is-valid': checkDone && errorStatus.rus}"
+               formControlName="rus">
+      </div>
+      <div class="form-group">
+        <label for="englishWord">English</label>
+        <input type="text"
+               class="form-control"
+               id="englishWord"
+               [ngClass]="{'is-invalid': checkDone && !errorStatus.eng, 'is-valid': checkDone && errorStatus.eng}"
+               formControlName="eng">
+      </div>
+      <div class="form-group">
+        <label for="dutchWord">Dutch</label>
+        <input type="text"
+               class="form-control"
+               id="dutchWord"
+               [ngClass]="{'is-invalid': checkDone && !errorStatus.ned, 'is-valid': checkDone && errorStatus.ned}"
+               formControlName="ned">
+      </div>
+      <div class="form-group">
+        <label>Part of speech</label>
+        <select class="form-control app-select"
+                formControlName="part">
+          <option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>
+        </select>
+      </div>
 
-
+      <div class="checkbox-wrapper">
+        <input id="rusControl"
+               type="checkbox"
+               [ngModelOptions]="{standalone: true}"
+               [(ngModel)]="checkFilter.rus">
+        <label for="rusControl" class="checkbox-label">show Russian</label>
+        <br>
+        <input id="engControl"
+               type="checkbox"
+               [ngModelOptions]="{standalone: true}"
+               [(ngModel)]="checkFilter.eng">
+        <label for="engControl" class="checkbox-label">show English</label>
+        <br>
+        <input id="nedControl"
+               type="checkbox"
+               [ngModelOptions]="{standalone: true}"
+               [(ngModel)]="checkFilter.ned">
+        <label for="nedControl" class="checkbox-label">show Dutch</label>
+      </div>
+      <button class="btn btn-primary"
+              type="button"
+              (click)="getRandomWord()">Get random word</button>
+      <button class="btn btn-primary"
+              type="button"
+              [disabled]="!targetWordIsSet || !checkWordForm.valid"
+              (click)="checkRandomWord()">Check word</button>
+      <button class="btn btn-primary"
+              type="button"
+              [disabled]="!targetWordIsSet"
+              (click)="getTheAnswer()">Give up</button>
+      <div class="statistics-wrapper">
+        <h4>Statistics for current session</h4>
+        <span class="badge badge-primary">Words tried: {{statistics.wordsGenerated}}</span>
+        <span class="badge badge-info">Attempts: {{statistics.attempts}}</span>
+        <span class="badge badge-success">Correct answers: {{statistics.rightAnswers}}</span>
+        <span class="badge badge-danger">Mistakes: {{statistics.mistakes}}</span>
+      </div>
+    </form>
+  </div>
+</div>

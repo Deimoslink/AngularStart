@@ -26,6 +26,7 @@ input[type="checkbox"] {
       vertical-align: middle;
       font-family: FontAwesome;
       background-color: white;
+      line-height: 10px;
     }
     &:hover, &:focus {
       &::before {
