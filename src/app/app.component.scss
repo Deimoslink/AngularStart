@@ -4,8 +4,34 @@ nav a {
   cursor: pointer;
   margin: 10px;
   font-size: 0.7em;
+  color: white;
 }
 
+.mobile-navbar-wrapper {
+  margin-top: -10px;
+  .mobile-navbar-ul {
+    margin: 0 10px;
+  }
+}
+
+/*UL RESET*/
+ul.style-reset {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}
+
+/*A RESET*/
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
 /*CHECKBOX CUSTOMIZATION FOR DIFFERENT BROWSERS*/
 input[type="checkbox"] {
   display: none;
@@ -47,5 +73,18 @@ input[type="checkbox"] {
       background-color: white;
       color: $dark;
     }
+  }
+}
+
+#mobile-navbar {
+  display: none !important;
+}
+
+@media screen and (max-width: 650px) {
+  #desktop-navbar {
+    display: none !important;
+  }
+  #mobile-navbar {
+    display: flex !important;
   }
 }

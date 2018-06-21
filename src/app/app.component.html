@@ -1,10 +1,27 @@
-<nav *ngIf="authenticated" class="navbar navbar-dark bg-dark d-flex">
-  <a class="navbar-brand" routerLink="">Vocabulary DB</a>
-  <a class="navbar-brand" routerLink="my-words">My Words</a>
-  <a class="navbar-brand" routerLink="my-categories">My Categories</a>
-  <a class="navbar-brand" routerLink="add-word">Add Word</a>
-  <a class="navbar-brand ml-auto" routerLink="" (click)="logout()">Logout</a>
-</nav>
+<ng-container *ngIf="authenticated">
+  <nav class="navbar navbar-dark bg-dark d-flex" id="desktop-navbar">
+    <a class="navbar-brand" routerLink="">Vocabulary DB</a>
+    <a class="navbar-brand" routerLink="my-words">My Words</a>
+    <a class="navbar-brand" routerLink="my-categories">My Categories</a>
+    <a class="navbar-brand" routerLink="add-word">Add Word</a>
+    <a class="navbar-brand ml-auto" routerLink="" (click)="logout()">Logout</a>
+  </nav>
+  <nav class="navbar navbar-dark bg-dark d-flex" id="mobile-navbar">
+    <a class="navbar-brand" href="#" (click)="toggleMenu()"><i [ngClass]="{'icon-reorder': !showMenu, 'icon-remove': showMenu}"></i></a>
+    <a class="navbar-brand ml-auto" routerLink="" (click)="logout()">Logout</a>
+  </nav>
+  <div *ngIf="showMenu" class="navbar navbar-dark bg-dark mobile-navbar-wrapper">
+    <ul class="style-reset mobile-navbar-ul">
+      <li><a class="navbar-brand" routerLink="">Vocabulary DB</a></li>
+      <li><a class="navbar-brand" routerLink="my-words">My Words</a></li>
+      <li><a class="navbar-brand" routerLink="my-categories">My Categories</a></li>
+      <li><a class="navbar-brand" routerLink="add-word">Add Word</a></li>
+    </ul>
+  </div>
+</ng-container>
+
+
+
 <div class="container">
   <router-outlet></router-outlet>
 </div>

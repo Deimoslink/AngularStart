@@ -54,17 +54,19 @@
                [(ngModel)]="checkFilter.ned">
         <label for="nedControl" class="checkbox-label">show Dutch</label>
       </div>
-      <button class="btn btn-primary"
-              type="button"
-              (click)="getRandomWord()">Get random word</button>
-      <button class="btn btn-primary"
-              type="button"
-              [disabled]="!targetWordIsSet || !checkWordForm.valid"
-              (click)="checkRandomWord()">Check word</button>
-      <button class="btn btn-primary"
-              type="button"
-              [disabled]="!targetWordIsSet"
-              (click)="getTheAnswer()">Give up</button>
+      <div class="button-wrapper">
+        <button class="btn btn-primary"
+                type="button"
+                (click)="getRandomWord()">Get word</button>
+        <button class="btn btn-primary"
+                type="button"
+                [disabled]="!targetWordIsSet || !checkWordForm.valid"
+                (click)="checkRandomWord()">Check</button>
+        <button class="btn btn-primary"
+                type="button"
+                [disabled]="!targetWordIsSet"
+                (click)="getTheAnswer()">Give up</button>
+      </div>
       <div class="statistics-wrapper">
         <h4>Statistics for current session</h4>
         <span class="badge badge-primary">Words tried: {{statistics.wordsGenerated}}</span>

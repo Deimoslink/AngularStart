@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
 import {AuthenticationService} from './shared/auth/authentication.service';
@@ -11,11 +11,20 @@ import {AuthenticationService} from './shared/auth/authentication.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private componentAlive: Subject<void> = new Subject();
+  public showMenu = false;
+  public authenticated = this.authenticationService.isAuthenticated();
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.showMenu = false;
+  }
 
   constructor(private authenticationService: AuthenticationService,
               private changeDetector: ChangeDetectorRef) {}
 
-  authenticated = this.authenticationService.isAuthenticated();
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
 
   ngOnInit() {
     this.authenticationService.authenticationStateStream.pipe(
