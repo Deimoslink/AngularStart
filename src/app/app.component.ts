@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewEncap
 import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
 import {AuthenticationService} from './shared/auth/authentication.service';
+import {UserService} from './shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import {AuthenticationService} from './shared/auth/authentication.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private componentAlive: Subject<void> = new Subject();
+  public userData: any;
   public showMenu = false;
   public authenticated = this.authenticationService.isAuthenticated();
 
@@ -20,13 +22,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   constructor(private authenticationService: AuthenticationService,
-              private changeDetector: ChangeDetectorRef) {}
+              private changeDetector: ChangeDetectorRef,
+              private userService: UserService) {}
 
-  toggleMenu() {
+  toggleMenu(e) {
+    e.preventDefault();
     this.showMenu = !this.showMenu;
   }
 
   ngOnInit() {
+    this.userData = this.userService.getUser();
     this.authenticationService.authenticationStateStream.pipe(
       distinctUntilChanged(),
       takeUntil(this.componentAlive)

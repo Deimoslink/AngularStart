@@ -79,8 +79,11 @@ input[type="checkbox"] {
 #mobile-navbar {
   display: none !important;
 }
-
-@media screen and (max-width: 650px) {
+.avatar img {
+  @include size(50px);
+  border-radius: 50%;
+}
+@media screen and (max-width: 740px) {
   #desktop-navbar {
     display: none !important;
   }
