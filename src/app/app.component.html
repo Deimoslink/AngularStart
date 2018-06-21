@@ -1,12 +1,14 @@
 <ng-container *ngIf="authenticated">
-  <nav class="navbar navbar-dark bg-dark d-flex" id="desktop-navbar">
-    <a class="navbar-brand" routerLink="">Vocabulary DB</a>
-    <a class="navbar-brand" routerLink="my-words">My Words</a>
-    <a class="navbar-brand" routerLink="my-categories">My Categories</a>
-    <a class="navbar-brand" routerLink="add-word">Add Word</a>
-    <div *ngIf="userData" class="navbar-brand ml-auto avatar"><img [src]="userData.user.photoURL" alt=""></div>
-    <a class="navbar-brand" [ngClass]="{'ml-auto': !userData}" routerLink="" (click)="logout()">Logout</a>
-  </nav>
+  <div class="desktop-navbar-wrapper bg-dark" id="desktop-navbar">
+    <nav class="navbar navbar-dark bg-dark d-flex">
+      <a class="navbar-brand" routerLink="">Vocabulary DB</a>
+      <a class="navbar-brand" routerLink="my-words">My Words</a>
+      <a class="navbar-brand" routerLink="my-categories">My Categories</a>
+      <a class="navbar-brand" routerLink="add-word">Add Word</a>
+      <div *ngIf="userData" class="navbar-brand ml-auto avatar"><img [src]="userData.user.photoURL" alt=""></div>
+      <a class="navbar-brand" [ngClass]="{'ml-auto': !userData}" routerLink="" (click)="logout()">Logout</a>
+    </nav>
+  </div>
   <nav class="navbar navbar-dark bg-dark d-flex" id="mobile-navbar">
     <a class="navbar-brand" tabindex (click)="toggleMenu()"><i [ngClass]="{'icon-reorder': !showMenu, 'icon-remove': showMenu}"></i></a>
     <div *ngIf="userData" class="navbar-brand ml-auto avatar"><img [src]="userData.user.photoURL" alt=""></div>

@@ -76,6 +76,13 @@ input[type="checkbox"] {
   }
 }
 
+.desktop-navbar-wrapper {
+  nav {
+    max-width: 960px;
+    margin: auto;
+  }
+}
+
 #mobile-navbar {
   display: none !important;
 }
