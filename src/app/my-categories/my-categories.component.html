@@ -14,12 +14,25 @@
                 <app-custom-colorpicker [colors]="colors" [selectedColor]="category.color" (transferColor)="repaintCategory(category.id, $event)"></app-custom-colorpicker>
                 <i class="icon-trash category-delete-button" (click)="removeCategory(category.id)"></i>
           </span>
-          <span *ngIf="!categories.length">Not a single category has been added yet</span>
+          <p class="text-muted" *ngIf="!categories.length">{{loadingInProgress ? 'Loading...' : 'Not a single category has been added yet'}}</p>
         </div>
       </div>
-
-
     </div>
+  </div>
+  <div class="row">
+    <form [formGroup]="addCategoryForm"
+          (ngSubmit)="saveNewCategory()"
+          class="add-word-form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+      <h4>Add new category</h4>
+      <div class="form-group">
+        <label for="categoryName">Category Name</label>
+        <input type="text"
+               class="form-control"
+               id="categoryName"
+               formControlName="categoryName">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!addCategoryForm.valid">Add category</button>
+    </form>
   </div>
 </div>
 

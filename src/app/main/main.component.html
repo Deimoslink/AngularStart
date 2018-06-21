@@ -34,25 +34,22 @@
           <option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>
         </select>
       </div>
-
       <div class="checkbox-wrapper">
         <input id="rusControl"
                type="checkbox"
                [ngModelOptions]="{standalone: true}"
                [(ngModel)]="checkFilter.rus">
-        <label for="rusControl" class="checkbox-label">show Russian</label>
-        <br>
+        <label for="rusControl" class="checkbox-label">Russian</label>
         <input id="engControl"
                type="checkbox"
                [ngModelOptions]="{standalone: true}"
                [(ngModel)]="checkFilter.eng">
-        <label for="engControl" class="checkbox-label">show English</label>
-        <br>
+        <label for="engControl" class="checkbox-label">English</label>
         <input id="nedControl"
                type="checkbox"
                [ngModelOptions]="{standalone: true}"
                [(ngModel)]="checkFilter.ned">
-        <label for="nedControl" class="checkbox-label">show Dutch</label>
+        <label for="nedControl" class="checkbox-label">Dutch</label>
       </div>
       <div class="button-wrapper">
         <button class="btn btn-primary"
@@ -68,7 +65,7 @@
                 (click)="getTheAnswer()">Give up</button>
       </div>
       <div class="statistics-wrapper">
-        <h4>Statistics for current session</h4>
+        <h5>Statistics for current session:</h5>
         <span class="badge badge-primary">Words tried: {{statistics.wordsGenerated}}</span>
         <span class="badge badge-info">Attempts: {{statistics.attempts}}</span>
         <span class="badge badge-success">Correct answers: {{statistics.rightAnswers}}</span>

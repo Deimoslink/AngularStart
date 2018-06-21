@@ -16,6 +16,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   private requestSubject = new Subject<any>();
   private ngUnsubscribe = new Subject<void>();
   words;
+  loadingInProgress;
   categories;
   editWordForm: FormGroup;
   pagination = {
@@ -125,15 +126,20 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadingInProgress = true;
     this.requestSubject.pipe(
       switchMap(page => this.getWords(page, this.pagination.size)),
       takeUntil(this.ngUnsubscribe)
     ).subscribe(res => {
+      console.log(res);
       res.data.map(el => {
         el.categories = el.categories ? el.categories : {};
       });
       this.words = res.data;
       this.pagination.totalPages = res.params.totalPages;
+      this.loadingInProgress = false;
+    }, () => {
+      this.loadingInProgress = false;
     });
     this.requestSubject.next(this.pagination.currentPage);
     this.getCategories();

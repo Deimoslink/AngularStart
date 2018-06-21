@@ -10,7 +10,6 @@ import {PARTS_OF_SPEECH} from '../shared/constants';
 })
 export class AddWordComponent implements OnInit {
   addWordForm: FormGroup;
-  addCategoryForm: FormGroup;
   partsOfSpeech = PARTS_OF_SPEECH;
 
   constructor(private fb: FormBuilder, private api: ApiService) {
@@ -24,24 +23,12 @@ export class AddWordComponent implements OnInit {
       'part': new FormControl({value: null, disabled: false},
         Validators.required)
     });
-
-    this.addCategoryForm = fb.group({
-      'categoryName': new FormControl({value: null, disabled: false},
-        Validators.required)
-    });
   }
 
   saveNewWord() {
     this.api.saveNewWord(this.addWordForm.value)
       .subscribe(() => {
         this.addWordForm.reset();
-      });
-  }
-
-  saveNewCategory() {
-    this.api.saveNewCategory(this.addCategoryForm.value)
-      .subscribe(() => {
-        this.addCategoryForm.reset();
       });
   }
 

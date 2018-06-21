@@ -1,10 +1,15 @@
 .check-word-form {
   padding: 20px;
 }
-.checkbox-wrapper, .statistics-wrapper {
+.checkbox-wrapper {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.statistics-wrapper {
   margin: 20px 0;
 }
-.button-wrapper .btn {
-  margin-bottom: 5px;
-  margin-right: 5px;
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
 }

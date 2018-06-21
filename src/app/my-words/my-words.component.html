@@ -1,4 +1,4 @@
-<form [formGroup]="editWordForm" class="row">
+<form [formGroup]="editWordForm" class="row" *ngIf="words; else emptyTable">
   <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 p-0">
     <div class="table-responsive">
       <table class="table">
@@ -88,3 +88,7 @@
                [currentPage]="pagination.currentPage"
                [totalPages]="pagination.totalPages"
                (refreshCurrentPage)="refreshRequest($event)"></app-paginator>
+
+<ng-template #emptyTable>
+  <p class="text-muted text-centered">{{loadingInProgress ? 'Loading...' : 'Looks like you haven\'t added any words yet'}}</p>
+</ng-template>
