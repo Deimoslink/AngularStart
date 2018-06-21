@@ -11,8 +11,6 @@
     <input type="checkbox" [ngModel]="categoriesMap[category.id]">
     <label (click)="toggleCategory(category.id)">{{category.categoryName}}</label>
   </span>
-</div>
-<div class="modal-body" *ngIf="!data.categories">
-  Create at least one word category first
+  <span *ngIf="!data.categories.length">Create at least one word category first</span>
 </div>
 <div class="modal-footer"></div>
