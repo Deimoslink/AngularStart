@@ -7,7 +7,7 @@
     <a class="navbar-brand ml-auto" routerLink="" (click)="logout()">Logout</a>
   </nav>
   <nav class="navbar navbar-dark bg-dark d-flex" id="mobile-navbar">
-    <a class="navbar-brand" href="#" (click)="toggleMenu()"><i [ngClass]="{'icon-reorder': !showMenu, 'icon-remove': showMenu}"></i></a>
+    <a class="navbar-brand" tabindex (click)="toggleMenu()"><i [ngClass]="{'icon-reorder': !showMenu, 'icon-remove': showMenu}"></i></a>
     <a class="navbar-brand ml-auto" routerLink="" (click)="logout()">Logout</a>
   </nav>
   <div *ngIf="showMenu" class="navbar navbar-dark bg-dark mobile-navbar-wrapper">
