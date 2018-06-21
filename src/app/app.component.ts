@@ -25,8 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
               private changeDetector: ChangeDetectorRef,
               private userService: UserService) {}
 
-  toggleMenu(e) {
-    e.preventDefault();
+  toggleMenu() {
     this.showMenu = !this.showMenu;
   }
 
