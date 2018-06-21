@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-body">
           <div class="form-group">
-            <input type="text" class="form-control" #filterValue (keyup)="0">
+            <input type="text" class="form-control" #filterValue (keyup)="0" placeholder="Filter">
           </div>
           <span *ngFor="let category of categories | searchByObjKeys : filterValue.value : ['categoryName']; let i = index"
                 [ngStyle]="{'background-color': category.color}"
