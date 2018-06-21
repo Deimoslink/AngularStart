@@ -12,6 +12,7 @@
     <label (click)="toggleCategory(category.id)">{{category.categoryName}}</label>
   </span>
 </div>
-<!--<div class="modal-footer">-->
-  <!--<button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>-->
-<!--</div>-->
+<div class="modal-body" *ngIf="!data.categories">
+  Create at least one word category first
+</div>
+<div class="modal-footer"></div>
