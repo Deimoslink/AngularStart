@@ -13,7 +13,10 @@
     "buildprod": "ng build --prod --aot",
     "front": "ng serve",
     "back": "json-server backend/db.json",
-    "server": "node backend/server"
+    "server": "node backend/server",
+    "webdriver-clean": "webdriver-manager clean",
+    "webdriver-update": "webdriver-manager update --ie --versions.standalone=3.4.0 --versions.ie=3.4.0",
+    "webdriver-start": "webdriver-manager start --versions.standalone=3.4.0 --versions.ie=3.4.0"
   },
   "private": true,
   "dependencies": {
