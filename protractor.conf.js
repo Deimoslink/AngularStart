@@ -13,13 +13,11 @@ exports.config = {
   // capabilities: {
   //   'browserName': 'chrome'
   // },
-  multiCapabilities: [{
-    'browserName': 'chrome'
-  },{
-    'browserName': 'firefox'
-  },{
-    'browserName': 'internet explorer'
-  }],
+  multiCapabilities: [
+    {'browserName': 'chrome'},
+    {'browserName': 'firefox'},
+    {'browserName': 'internet explorer'}
+    ],
   directConnect: false,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',

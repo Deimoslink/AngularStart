@@ -20,7 +20,8 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+You have to run `webdriver-manager start` in a parallel terminal. Make sure you install webdriver-manager and keep it up-to-date.
 
 ## Further help
 
