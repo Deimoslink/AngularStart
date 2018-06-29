@@ -56,7 +56,7 @@ export const get_words = functions.https.onRequest((request, response) => {
               responseParams['categories'] = categories;
               data = data.filter(el => {
                 return categories.some(cat => {
-                  return el.categories[cat]
+                  return el.categories ? el.categories[cat] : false;
                 });
               });
             }

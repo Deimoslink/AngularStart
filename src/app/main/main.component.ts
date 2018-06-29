@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PARTS_OF_SPEECH} from '../shared/constants';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SetCategoriesToGetModalComponent} from '../shared/modals/set-categories-to-get-modal/set-categories-to-get.modal.component';
 
 @Component({
   selector: 'app-main',
@@ -30,9 +32,17 @@ export class MainComponent implements OnInit {
     wordsGenerated: 0,
     attempts: 0
   };
+  categories = [];
   checkWordForm: FormGroup;
+  modals = {
+    setCategories: SetCategoriesToGetModalComponent
+  };
+  activeCategoriesMap = {};
+  selectedCategoriesIds = [];
 
-  constructor(private fb: FormBuilder, private api: ApiService) {
+  constructor(private fb: FormBuilder,
+              private api: ApiService,
+              private modalService: NgbModal) {
     this.checkWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: true},
         Validators.required),
@@ -57,7 +67,6 @@ export class MainComponent implements OnInit {
   }
 
   checkRandomWord() {
-    console.log('check', this.checkWordForm.value, this.targetWord);
     this.statistics.attempts++;
     const answers = [];
     Object.keys(this.checkWordForm.value).map(key => {
@@ -73,9 +82,26 @@ export class MainComponent implements OnInit {
     this.checkDone = true;
   }
 
+  getCategories() {
+    this.api.getCategories().subscribe(res => {
+      this.categories = res.map(snapshot => {
+        return Object.assign({id: snapshot.key}, snapshot.payload.val());
+      });
+    });
+  }
+
+  open(modalName) {
+    const modalRef = this.modalService.open(this.modals[modalName], { size: 'lg' });
+    modalRef.componentInstance.data = {categories: this.categories, activeCategoriesMap: this.activeCategoriesMap};
+    modalRef.componentInstance.updateCategories.subscribe(($e) => {
+      this.activeCategoriesMap = $e;
+      this.selectedCategoriesIds = Object.keys(this.activeCategoriesMap).filter(key => this.activeCategoriesMap[key]);
+    });
+  }
+
   getRandomWord() {
     this.disableForm();
-    this.api.getRandomWord()
+    this.api.getRandomWord(this.selectedCategoriesIds)
       .subscribe((res) => {
         this.targetWord = res;
         const bufferWord = Object.assign({}, this.targetWord);
@@ -102,7 +128,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getCategories();
   }
 
 }

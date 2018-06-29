@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared.module';
 import {EditWordCategoriesModalComponent} from './edit-word-categories-modal/edit-word-categories.modal.component';
+import {SetCategoriesToGetModalComponent} from './set-categories-to-get-modal/set-categories-to-get.modal.component';
 
 @NgModule({
   imports: [
@@ -9,10 +10,12 @@ import {EditWordCategoriesModalComponent} from './edit-word-categories-modal/edi
     SharedModule
   ],
   declarations: [
-    EditWordCategoriesModalComponent
+    EditWordCategoriesModalComponent,
+    SetCategoriesToGetModalComponent
   ],
   entryComponents: [
-    EditWordCategoriesModalComponent
+    EditWordCategoriesModalComponent,
+    SetCategoriesToGetModalComponent
   ]
 })
 export class ModalsModule { }

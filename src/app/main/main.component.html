@@ -27,13 +27,13 @@
                [ngClass]="{'is-invalid': checkDone && !errorStatus.ned, 'is-valid': checkDone && errorStatus.ned}"
                formControlName="ned">
       </div>
-      <div class="form-group">
-        <label>Part of speech</label>
-        <select class="form-control app-select"
-                formControlName="part">
-          <option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>
-        </select>
-      </div>
+      <!--<div class="form-group">-->
+        <!--<label>Part of speech</label>-->
+        <!--<select class="form-control app-select"-->
+                <!--formControlName="part">-->
+          <!--<option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>-->
+        <!--</select>-->
+      <!--</div>-->
       <div class="checkbox-wrapper">
         <input id="rusControl"
                type="checkbox"
@@ -52,14 +52,14 @@
         <label for="nedControl" class="checkbox-label">Dutch</label>
       </div>
       <div class="button-wrapper">
-        <button class="btn btn-primary"
+        <button class="btn btn-sm btn-primary"
                 type="button"
                 (click)="getRandomWord()">Get word</button>
-        <button class="btn btn-primary"
+        <button class="btn btn-sm btn-primary"
                 type="button"
                 [disabled]="!targetWordIsSet || !checkWordForm.valid"
                 (click)="checkRandomWord()">Check</button>
-        <button class="btn btn-primary"
+        <button class="btn btn-sm btn-primary"
                 type="button"
                 [disabled]="!targetWordIsSet"
                 (click)="getTheAnswer()">Give up</button>
@@ -70,6 +70,22 @@
         <span class="badge badge-info">Attempts: {{statistics.attempts}}</span>
         <span class="badge badge-success">Correct answers: {{statistics.rightAnswers}}</span>
         <span class="badge badge-danger">Mistakes: {{statistics.mistakes}}</span>
+      </div>
+      <div class="button-wrapper">
+        <button class="btn btn-sm btn-primary"
+                type="button"
+                [disabled]="!categories.length"
+                (click)="open('setCategories')">Select by categories</button>
+      </div>
+      <div class="statistics-wrapper" *ngIf="selectedCategoriesIds.length">
+        <h5>Active categories:</h5>
+        <ng-container *ngFor="let category of categories">
+                  <span *ngIf="activeCategoriesMap[category.id]"
+                        class="badge badge-success category-badge"
+                        [ngStyle]="{'background-color': category.color}">
+                    {{category.categoryName}}
+                  </span>
+        </ng-container>
       </div>
     </form>
   </div>

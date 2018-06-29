@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {COLORS} from '../shared/constants';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-my-categories',
@@ -14,7 +14,8 @@ export class MyCategoriesComponent implements OnInit {
   colors = COLORS;
   categories = [];
 
-  constructor(private fb: FormBuilder,private api: ApiService) {
+  constructor(private fb: FormBuilder,
+              private api: ApiService) {
     this.addCategoryForm = fb.group({
       'categoryName': new FormControl({value: null, disabled: false},
         Validators.required)
