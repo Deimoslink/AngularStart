@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PARTS_OF_SPEECH} from '../shared/constants';
+import {EditWordCategoriesModalComponent} from "../shared/modals/edit-word-categories-modal/edit-word-categories.modal.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-add-word',
@@ -11,8 +13,12 @@ import {PARTS_OF_SPEECH} from '../shared/constants';
 export class AddWordComponent implements OnInit {
   addWordForm: FormGroup;
   partsOfSpeech = PARTS_OF_SPEECH;
+  categories = [];
+  loadingInProgress = false;
+  categoriesMap;
 
-  constructor(private fb: FormBuilder, private api: ApiService) {
+  constructor(private fb: FormBuilder,
+              private api: ApiService) {
     this.addWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
         Validators.required),
@@ -26,13 +32,42 @@ export class AddWordComponent implements OnInit {
   }
 
   saveNewWord() {
-    this.api.saveNewWord(this.addWordForm.value)
+    const addedCategories = {};
+    Object.keys(this.categoriesMap)
+      .filter(key => this.categoriesMap[key])
+      .map(key => {addedCategories[key] = true});
+    this.api.saveNewWord(Object.assign(this.addWordForm.value, {categories: addedCategories}))
       .subscribe(() => {
         this.addWordForm.reset();
+        this.categoriesMap = this.mapCategories();
       });
   }
 
+  getCategories() {
+    this.api.getCategories().subscribe(res => {
+      this.loadingInProgress = false;
+      this.categories = res.map(snapshot => {
+        return Object.assign({id: snapshot.key}, snapshot.payload.val());
+      });
+      this.categoriesMap = this.mapCategories();
+    });
+  }
+
+  toggleCategory(categoryId) {
+    this.categoriesMap[categoryId] = !this.categoriesMap[categoryId];
+  }
+
+  mapCategories() {
+    const bufferObj: any = {};
+    this.categories.map(category => {
+      bufferObj[category['id']] = false;
+    });
+    return bufferObj;
+  }
+
   ngOnInit() {
+    this.loadingInProgress = true;
+    this.getCategories();
   }
 
 }
