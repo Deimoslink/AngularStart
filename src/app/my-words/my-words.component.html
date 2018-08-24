@@ -2,8 +2,13 @@
   <div class="input-group col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 p-0">
     <input type="text" class="form-control" placeholder="Search a word">
     <div class="input-group-append">
-      <button class="btn btn-outline-primary" (click)="applySpeechPart()">Set Speechpart</button>
-      <button class="btn btn-outline-primary" [disabled]="!categories || !categories.length" (click)="applyCategories()">Set Category</button>
+      <!--<button class="btn btn-outline-primary" (click)="applySpeechPart()">Set Speechpart</button>-->
+      <button class="btn btn-outline-primary"
+              [disabled]="!categories || !categories.length"
+              (click)="applyCategories()">
+        <i class="icon-cog d-sm-none"></i>
+        <span class="d-none d-sm-inline-block">Set Categories</span>
+      </button>
       <button class="btn btn-primary" (click)="applySearch()">Search</button>
     </div>
   </div>

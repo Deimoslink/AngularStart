@@ -95,7 +95,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   deleteWordByKey(key) {
-    this.api.deleteWordByKey(key).subscribe(res => {
+    this.api.deleteWordByKey(key).subscribe(() => {
       this.refreshRequest(this.pagination.currentPage);
     });
   }
@@ -128,7 +128,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   removeCategoryFromWord(wordId, categoryId, index) {
-    this.api.deleteCategoryFromWord(wordId, categoryId).subscribe(res => {
+    this.api.deleteCategoryFromWord(wordId, categoryId).subscribe(() => {
       this.words[index].categories[categoryId] = false;
     });
   }
@@ -141,9 +141,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     this.refreshRequest(1);
   }
 
-  applySpeechPart() {
-
-  }
+  // applySpeechPart() {}
 
   applyCategories() {
     const modalRef = this.modalService.open(this.modals['setSearchCategories'], { size: 'lg' });
