@@ -1,3 +1,27 @@
+<div class="row search-filters">
+  <div class="input-group col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 p-0">
+    <input type="text" class="form-control" placeholder="Search a word">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" (click)="applySpeechPart()">Set Speechpart</button>
+      <button class="btn btn-outline-primary" [disabled]="!categories || !categories.length" (click)="applyCategories()">Set Category</button>
+      <button class="btn btn-primary" (click)="applySearch()">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 pb-2">
+    <ng-container *ngFor="let category of categories">
+                  <span *ngIf="searchState.categories && searchState.categories[category.id]"
+                        class="badge badge-success category-badge"
+                        [ngStyle]="{'background-color': category.color}">
+                    {{category.categoryName}}
+                    <i class="icon-remove category-remove-button" (click)="removeCategoryFromSearch(category.id)"></i>
+                  </span>
+    </ng-container>
+  </div>
+</div>
+
 <form [formGroup]="editWordForm" class="row" *ngIf="words; else emptyTable">
   <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 p-0">
     <div class="table-responsive">

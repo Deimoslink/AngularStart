@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PARTS_OF_SPEECH} from '../shared/constants';
-import {EditWordCategoriesModalComponent} from "../shared/modals/edit-word-categories-modal/edit-word-categories.modal.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-add-word',
@@ -35,7 +33,7 @@ export class AddWordComponent implements OnInit {
     const addedCategories = {};
     Object.keys(this.categoriesMap)
       .filter(key => this.categoriesMap[key])
-      .map(key => {addedCategories[key] = true});
+      .map(key => { addedCategories[key] = true; });
     this.api.saveNewWord(Object.assign(this.addWordForm.value, {categories: addedCategories}))
       .subscribe(() => {
         this.addWordForm.reset();

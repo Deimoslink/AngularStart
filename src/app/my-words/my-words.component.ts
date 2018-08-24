@@ -6,6 +6,7 @@ import {switchMap, takeUntil} from 'rxjs/internal/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditWordCategoriesModalComponent} from '../shared/modals/edit-word-categories-modal/edit-word-categories.modal.component';
 import {PARTS_OF_SPEECH} from '../shared/constants';
+import {SetSearchCategoriesModalComponent} from '../shared/modals/set-search-categories-modal/set-search-categories.modal.component';
 
 @Component({
   selector: 'app-my-words',
@@ -32,9 +33,14 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     part: ''
   };
   modals = {
-    addCategories: EditWordCategoriesModalComponent
+    addCategories: EditWordCategoriesModalComponent,
+    setSearchCategories: SetSearchCategoriesModalComponent
   };
   partsOfSpeech = PARTS_OF_SPEECH;
+  searchState = {
+    categories: {},
+    speechparts: {}
+  };
 
   @HostListener('click', ['$event.target'])
   private onEditBlur(targetElement: HTMLElement) {
@@ -75,7 +81,9 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   getWords(page = 1, size = this.pagination.size) {
-    return this.api.getWords(page, size);
+    const selectedCategoriesIds = Object.keys(this.searchState.categories).filter(key => this.searchState.categories[key]);
+    console.log(selectedCategoriesIds);
+    return this.api.getWords(page, size, selectedCategoriesIds);
   }
 
   getCategories() {
@@ -122,6 +130,26 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   removeCategoryFromWord(wordId, categoryId, index) {
     this.api.deleteCategoryFromWord(wordId, categoryId).subscribe(res => {
       this.words[index].categories[categoryId] = false;
+    });
+  }
+
+  removeCategoryFromSearch(categoryId) {
+    this.searchState.categories[categoryId] = null;
+  }
+
+  applySearch() {
+    this.refreshRequest(1);
+  }
+
+  applySpeechPart() {
+
+  }
+
+  applyCategories() {
+    const modalRef = this.modalService.open(this.modals['setSearchCategories'], { size: 'lg' });
+    modalRef.componentInstance.data = {categories: this.categories, activeCategoriesMap: this.searchState.categories};
+    modalRef.componentInstance.updateCategories.subscribe(($e) => {
+      this.searchState.categories = $e;
     });
   }
 

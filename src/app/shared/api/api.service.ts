@@ -36,7 +36,7 @@ export class ApiService {
     return this.http.post(query, data);
   }
 
-  getWords(page?, size?): Observable<any> {
+  getWords(page?, size?, categories?): Observable<any> {
     const userId = this.userService.getUserId();
     let query = this.FUNCTIONS_URL + 'get_words?userId=' + userId;
     if (arguments.length) {
@@ -47,12 +47,16 @@ export class ApiService {
       if (size) {
         params.push('size=' + size);
       }
+      if (categories && categories.length) {
+        query = query + '&categories=' + categories.join(';');
+      }
       query = query + '&' + params.join('&');
     }
     return this.http.get(query);
   }
 
   getRandomWord(categories?): Observable<any> {
+    console.log(categories);
     const userId = this.userService.getUserId();
     let query = this.FUNCTIONS_URL + 'get_words?userId=' + userId;
     if (categories && categories.length) {
