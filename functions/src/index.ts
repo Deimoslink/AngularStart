@@ -24,6 +24,7 @@ export const get_words = functions.https.onRequest((request, response) => {
 
     let userId: string = '';
     let categories = [];
+    let speechparts = [];
     let random = false;
 
     request.url.split('?')
@@ -41,6 +42,9 @@ export const get_words = functions.https.onRequest((request, response) => {
         if (key === 'categories') {
           categories = value.split(';');
         }
+        if (key === 'speechparts') {
+          speechparts = value.split(';');
+        }
         if (key === 'random') {
           random = true;
         }
@@ -57,6 +61,14 @@ export const get_words = functions.https.onRequest((request, response) => {
               data = data.filter(el => {
                 return categories.some(cat => {
                   return el.categories ? el.categories[cat] : false;
+                });
+              });
+            }
+            if (speechparts.length) {
+              responseParams['speechparts'] = speechparts;
+              data = data.filter(el => {
+                return speechparts.some(speechpart => {
+                  return el.part === speechpart;
                 });
               });
             }
