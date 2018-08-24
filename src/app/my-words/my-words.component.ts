@@ -41,6 +41,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     categories: {},
     speechparts: {}
   };
+  queryValue = '';
 
   @HostListener('click', ['$event.target'])
   private onEditBlur(targetElement: HTMLElement) {
@@ -82,8 +83,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
 
   getWords(page = 1, size = this.pagination.size) {
     const selectedCategoriesIds = Object.keys(this.searchState.categories).filter(key => this.searchState.categories[key]);
-    console.log(selectedCategoriesIds);
-    return this.api.getWords(page, size, selectedCategoriesIds);
+    return this.api.getWords(page, size, selectedCategoriesIds, this.queryValue);
   }
 
   getCategories() {

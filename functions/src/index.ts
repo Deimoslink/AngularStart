@@ -23,6 +23,7 @@ export const get_words = functions.https.onRequest((request, response) => {
     };
 
     let userId: string = '';
+    let query: string = '';
     let categories = [];
     let speechparts = [];
     let random = false;
@@ -35,6 +36,9 @@ export const get_words = functions.https.onRequest((request, response) => {
         const value = param.split('=').pop();
         if (responseParams[key]) {
           responseParams[key] = parseInt(value);
+        }
+        if (key === 'query') {
+          query = value;
         }
         if (key === 'userId') {
           userId = value;
@@ -56,6 +60,14 @@ export const get_words = functions.https.onRequest((request, response) => {
             let data = Object.keys(snapshot.val()).map(key => {
               return Object.assign({id: key}, snapshot.val()[key]);
             });
+            if (query) {
+              responseParams['query'] = decodeURIComponent(query);
+              data = data.filter(el => {
+                return `${el.eng} ${el.ned} ${el.rus}`
+                  .toLowerCase()
+                  .includes(decodeURIComponent(query).toLowerCase());
+              });
+            }
             if (categories.length) {
               responseParams['categories'] = categories;
               data = data.filter(el => {

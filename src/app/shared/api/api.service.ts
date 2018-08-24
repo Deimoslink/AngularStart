@@ -36,7 +36,7 @@ export class ApiService {
     return this.http.post(query, data);
   }
 
-  getWords(page?, size?, categories?): Observable<any> {
+  getWords(page, size, categories, queryValue): Observable<any> {
     const userId = this.userService.getUserId();
     let query = this.FUNCTIONS_URL + 'get_words?userId=' + userId;
     if (arguments.length) {
@@ -49,6 +49,9 @@ export class ApiService {
       }
       if (categories && categories.length) {
         query = query + '&categories=' + categories.join(';');
+      }
+      if (queryValue) {
+        query = query + '&query=' + encodeURIComponent(queryValue);
       }
       query = query + '&' + params.join('&');
     }
