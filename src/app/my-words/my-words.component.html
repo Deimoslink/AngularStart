@@ -72,6 +72,7 @@
                        [(ngModel)]="editWord.eng">
               </td>
               <td>
+                <i (click)="pronounce(word.ned)" [hidden]="editWord.id === word.id" class="icon-volume-up listen-button"></i>
                 <span [hidden]="editWord.id === word.id">{{word.ned}}</span>
                 <input [hidden]="editWord.id !== word.id"
                        class="form-control form-control-sm"

@@ -117,6 +117,10 @@ export class MyWordsComponent implements OnInit, OnDestroy {
     );
   }
 
+  pronounce(word) {
+    console.log(word);
+  }
+
   leaveEditMode() {
     this.editWord = {
       id: '',
