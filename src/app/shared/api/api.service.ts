@@ -59,7 +59,6 @@ export class ApiService {
   }
 
   getRandomWord(categories?): Observable<any> {
-    console.log(categories);
     const userId = this.userService.getUserId();
     let query = this.FUNCTIONS_URL + 'get_words?userId=' + userId;
     if (categories && categories.length) {

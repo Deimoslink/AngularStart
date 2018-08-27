@@ -35,11 +35,11 @@ export class MyCategoriesComponent implements OnInit {
   }
 
   removeCategory(categoryId) {
-    this.api.deleteCategoryByKey(categoryId).subscribe(res => console.log(res));
+    this.api.deleteCategoryByKey(categoryId).subscribe(() => {});
   }
 
   repaintCategory(categoryId, color) {
-    this.api.repaintCategoryByKey(categoryId, color).subscribe(res => console.log(res));
+    this.api.repaintCategoryByKey(categoryId, color).subscribe(() => {});
   }
 
   getCategories() {

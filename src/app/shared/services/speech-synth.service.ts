@@ -20,7 +20,7 @@ export class SpeechSynthService {
 
   say(input: string): void {
     if (this.voice) {
-      let phrase = new SpeechSynthesisUtterance(input);
+      const phrase = new SpeechSynthesisUtterance(input);
       phrase.lang = this.voice.lang;
       phrase.voice = this.voice;
       window.speechSynthesis.speak(phrase);
