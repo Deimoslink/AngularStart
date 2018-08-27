@@ -159,6 +159,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.synth.getVoices();
     this.loadingInProgress = true;
     this.requestSubject.pipe(
       switchMap(page => this.getWords(page, this.pagination.size)),

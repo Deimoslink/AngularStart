@@ -30,12 +30,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.userData = this.userService.getUser();
     this.authenticationService.authenticationStateStream.pipe(
       takeUntil(this.componentAlive)
     ).subscribe(
       (change) => {
         this.authenticated = change;
-        this.userData = this.userService.getUser();
+        if (!this.userData) {
+          this.userData = this.userService.getUser();
+        }
         this.changeDetector.detectChanges();
       }
     );
