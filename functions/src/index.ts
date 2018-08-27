@@ -84,10 +84,11 @@ export const get_words = functions.https.onRequest((request, response) => {
                 });
               });
             }
-            responseParams.totalElements = data.length;
             if (random) {
               response.send(data[Math.floor(Math.random() * data.length)]);
             } else {
+              responseParams.totalElements = data.length;
+              data = data.sort((a, b) => (a.rus > b.rus));
               responseParams.totalPages = Math.ceil(data.length / responseParams.size);
               responseParams.page = responseParams.page > responseParams.totalPages ? responseParams.totalPages : responseParams.page;
               const startWith = (responseParams.page - 1) * responseParams.size;
