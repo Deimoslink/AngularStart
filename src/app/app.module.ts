@@ -9,7 +9,7 @@ import {ModalsModule} from './shared/modals/modals.module';
 import {SharedModule} from './shared/shared.module';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
-import { MainComponent } from './main/main.component';
+import {MainComponent} from './main/main.component';
 
 export const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyBUMeEqc_FZg2UAnWHVR9mH6fqpt9UIzEE',

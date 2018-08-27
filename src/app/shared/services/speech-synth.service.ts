@@ -13,10 +13,11 @@ export class SpeechSynthService {
   }
 
   say(input: string): void {
-    let phrase = new SpeechSynthesisUtterance(input);
-    phrase.voice = this.voice;
-    window.speechSynthesis.speak(phrase);
+    if (this.voice) {
+      let phrase = new SpeechSynthesisUtterance(input);
+      phrase.voice = this.voice;
+      window.speechSynthesis.speak(phrase);
+    }
   }
-
 
 }
