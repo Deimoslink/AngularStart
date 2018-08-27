@@ -103,6 +103,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   refreshRequest(page) {
+    this.pagination.currentPage = page;
     this.requestSubject.next(page);
   }
 
@@ -134,7 +135,9 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   removeCategoryFromWord(wordId, categoryId, index) {
-    this.api.deleteCategoryFromWord(wordId, categoryId).subscribe(() => {
+    this.api.deleteCategoryFromWord(wordId, categoryId).pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe(() => {
       this.words[index].categories[categoryId] = false;
     });
   }
@@ -146,8 +149,6 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   applySearch() {
     this.refreshRequest(1);
   }
-
-  // applySpeechPart() {}
 
   applyCategories() {
     const modalRef = this.modalService.open(this.modals['setSearchCategories'], { size: 'lg' });

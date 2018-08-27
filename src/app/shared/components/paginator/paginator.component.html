@@ -1,5 +1,5 @@
 <ul class="ul-style-reset paginator">
-  <li [ngClass]="{'hide' : first}"
+  <li [ngClass]="{'hide' : first || pagesArray.length <= 5}"
       class="paginator-edge-btn"
       (click)="changePage(1)">
     <a><i class="icon-backward"></i></a>
@@ -18,7 +18,7 @@
       (click)="changePage(currentPage + 1)">
     <a><i class="icon-step-forward"></i></a>
   </li>
-  <li [ngClass]="{'hide' : last}"
+  <li [ngClass]="{'hide' : last || pagesArray.length <= 5}"
       class="paginator-edge-btn"
       (click)="changePage(pagesArray.length)">
     <a><i class="icon-forward"></i></a>

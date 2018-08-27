@@ -15,7 +15,6 @@ export class PaginatorComponent implements OnInit, OnChanges {
   sliceBtnsFrom = 1;
   sliceBtnsTo = 6;
   pagesArray = [];
-  firstEmitIsFired = false;
 
   constructor() { }
 
@@ -49,10 +48,6 @@ export class PaginatorComponent implements OnInit, OnChanges {
       this.sliceBtnsTo = this.totalPages;
     }
     this.checkIfEdge();
-    if (this.firstEmitIsFired) {
-      this.refreshCurrentPage.emit(this.currentPage);
-    }
-    this.firstEmitIsFired = true;
   }
 
 
@@ -70,6 +65,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
     }
     this.currentPage = num;
     this.refreshView();
+    this.refreshCurrentPage.emit(this.currentPage);
   }
 
 
