@@ -7,6 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditWordCategoriesModalComponent} from '../shared/modals/edit-word-categories-modal/edit-word-categories.modal.component';
 import {PARTS_OF_SPEECH} from '../shared/constants';
 import {SetSearchCategoriesModalComponent} from '../shared/modals/set-search-categories-modal/set-search-categories.modal.component';
+import {SpeechSynthService} from '../shared/services/speech-synth.service';
 
 @Component({
   selector: 'app-my-words',
@@ -55,6 +56,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
 
   constructor(private api: ApiService,
               private fb: FormBuilder,
+              private synth: SpeechSynthService,
               private modalService: NgbModal) {
     this.editWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: false},
@@ -118,7 +120,7 @@ export class MyWordsComponent implements OnInit, OnDestroy {
   }
 
   pronounce(word) {
-    console.log(word);
+    this.synth.say(word);
   }
 
   leaveEditMode() {

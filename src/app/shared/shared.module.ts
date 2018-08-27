@@ -8,6 +8,7 @@ import {PaginatorComponent} from './components/paginator/paginator.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomColorpickerComponent} from './components/custom-colorpicker/custom-colorpicker.component';
+import {SpeechSynthService} from './services/speech-synth.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {CustomColorpickerComponent} from './components/custom-colorpicker/custom
   providers: [
     HttpClient,
     ApiService,
-    UserService
+    UserService,
+    SpeechSynthService
   ],
   exports: [
     AuthModule,
