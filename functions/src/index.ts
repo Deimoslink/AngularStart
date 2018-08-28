@@ -93,10 +93,9 @@ export const get_words = functions.https.onRequest((request, response) => {
               data = data.sort((a, b) => {
                 if(!a.statistics) return -1;
                 if(!b.statistics) return 1;
-                if(a.statistics.mistakes === b.statistics.mistakes) return 0;
-                return a.statistics.attempts / a.statistics.mistakes >= b.statistics.attempts / b.statistics.mistakes ? 1 : -1
+                return a.statistics.rightAnswers / (a.statistics.mistakes + 1) >= b.statistics.rightAnswers / (b.statistics.mistakes + 1) ? 1 : -1
               });
-              const slicepoint = data.length <= 8 ? data.length : 8;
+              const slicepoint = data.length <= 12 ? data.length : 12;
               const randomWord = data[Math.floor(Math.random() * slicepoint)];
               previousWordId = randomWord.id;
               response.send(randomWord);
