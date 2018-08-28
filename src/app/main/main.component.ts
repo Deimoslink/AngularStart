@@ -4,8 +4,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PARTS_OF_SPEECH} from '../shared/constants';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SetCategoriesToGetModalComponent} from '../shared/modals/set-categories-to-get-modal/set-categories-to-get.modal.component';
-import {takeUntil} from 'rxjs/internal/operators';
-import {Subject} from 'rxjs/Rx';
+import {takeUntil} from 'rxjs/internal/operators/';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-main',
@@ -84,11 +84,11 @@ export class MainComponent implements OnInit, OnDestroy {
       this.targetWord['statistics'] = this.currentWordStatistics;
     }
 
-    let word = Object.assign({}, this.targetWord);
+    const word = Object.assign({}, this.targetWord);
     delete word.id;
 
     this.api.updateWordByKey(this.targetWord.id, word).subscribe(
-      res => {
+      () => {
         this.currentWordStatistics = {
           mistakes: 0,
           rightAnswers: 0,
