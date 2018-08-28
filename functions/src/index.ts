@@ -85,7 +85,14 @@ export const get_words = functions.https.onRequest((request, response) => {
               });
             }
             if (random) {
-              response.send(data[Math.floor(Math.random() * data.length)]);
+              data = data.sort((a, b) => {
+                if(!a.statistics) return -1;
+                if(!b.statistics) return 1;
+                if(a.statistics.rightAnswers === b.statistics.rightAnswers) return 0;
+                return a.statistics.rightAnswers > b.statistics.rightAnswers ? 1 : -1
+              });
+              const slicepoint = data.length <= 8 ? data.length : 8;
+              response.send(data[Math.floor(Math.random() * slicepoint)]);
             } else {
               responseParams.totalElements = data.length;
               data = data.sort((a, b) => (a.rus > b.rus ? 1 : -1));
