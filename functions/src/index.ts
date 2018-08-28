@@ -28,6 +28,8 @@ export const get_words = functions.https.onRequest((request, response) => {
     let speechparts = [];
     let random = false;
 
+    let previousWordId = '';
+
     request.url.split('?')
       .pop()
       .split('&')
@@ -85,6 +87,9 @@ export const get_words = functions.https.onRequest((request, response) => {
               });
             }
             if (random) {
+              if (data.length >= 2 && previousWordId) {
+                data = data.filter(el => el.id !== previousWordId);
+              }
               data = data.sort((a, b) => {
                 if(!a.statistics) return -1;
                 if(!b.statistics) return 1;
@@ -92,7 +97,9 @@ export const get_words = functions.https.onRequest((request, response) => {
                 return a.statistics.rightAnswers > b.statistics.rightAnswers ? 1 : -1
               });
               const slicepoint = data.length <= 8 ? data.length : 8;
-              response.send(data[Math.floor(Math.random() * slicepoint)]);
+              const randomWord = data[Math.floor(Math.random() * slicepoint)];
+              previousWordId = randomWord.id;
+              response.send(randomWord);
             } else {
               responseParams.totalElements = data.length;
               data = data.sort((a, b) => (a.rus > b.rus ? 1 : -1));
