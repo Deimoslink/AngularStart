@@ -1,16 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from '../shared/api/api.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PARTS_OF_SPEECH} from '../shared/constants';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SetCategoriesToGetModalComponent} from '../shared/modals/set-categories-to-get-modal/set-categories-to-get.modal.component';
+import {takeUntil} from 'rxjs/internal/operators';
+import {Subject} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject<void>();
   partsOfSpeech = PARTS_OF_SPEECH;
   targetWordIsSet = false;
   checkDone = false;
@@ -32,6 +35,11 @@ export class MainComponent implements OnInit {
     wordsGenerated: 0,
     attempts: 0
   };
+  currentWordStatistics = {
+    mistakes: 0,
+    rightAnswers: 0,
+    attempts: 0
+  };
   categories = [];
   checkWordForm: FormGroup;
   modals = {
@@ -39,6 +47,7 @@ export class MainComponent implements OnInit {
   };
   activeCategoriesMap = {};
   selectedCategoriesIds = [];
+  statisticsSaved = false;
 
   constructor(private fb: FormBuilder,
               private api: ApiService,
@@ -66,8 +75,33 @@ export class MainComponent implements OnInit {
     this.checkWordForm.controls['ned'].enable();
   }
 
+  saveStatistics() {
+    if (this.targetWord.statistics) {
+      this.targetWord.statistics.mistakes += this.currentWordStatistics.mistakes;
+      this.targetWord.statistics.rightAnswers += this.currentWordStatistics.rightAnswers;
+      this.targetWord.statistics.attempts += this.currentWordStatistics.attempts;
+    } else {
+      this.targetWord['statistics'] = this.currentWordStatistics;
+    }
+
+    let word = Object.assign({}, this.targetWord);
+    delete word.id;
+
+    this.api.updateWordByKey(this.targetWord.id, word).subscribe(
+      res => {
+        this.currentWordStatistics = {
+          mistakes: 0,
+          rightAnswers: 0,
+          attempts: 0
+        };
+        this.statisticsSaved = true;
+      }
+    );
+  }
+
   checkRandomWord() {
     this.statistics.attempts++;
+    this.currentWordStatistics.attempts++;
     const answers = [];
     Object.keys(this.checkWordForm.value).map(key => {
       this.errorStatus[key] = this.checkWordForm.value[key].toLowerCase() === this.targetWord[key].toLowerCase();
@@ -75,9 +109,12 @@ export class MainComponent implements OnInit {
     });
     if (answers.some(el => !el)) {
       this.statistics.mistakes++;
+      this.currentWordStatistics.mistakes++;
     } else {
       this.statistics.rightAnswers++;
       this.targetWordIsSet = false;
+      this.currentWordStatistics.rightAnswers++;
+      this.saveStatistics();
     }
     this.checkDone = true;
   }
@@ -100,9 +137,9 @@ export class MainComponent implements OnInit {
   }
 
   getRandomWord() {
+    this.statisticsSaved = false;
     this.disableForm();
-    this.api.getRandomWord(this.selectedCategoriesIds)
-      .subscribe((res) => {
+    this.api.getRandomWord(this.selectedCategoriesIds).pipe(takeUntil(this.ngUnsubscribe)).subscribe((res) => {
         this.targetWord = res;
         const bufferWord = Object.assign({}, this.targetWord);
         Object.keys(bufferWord).map(key => {
@@ -125,10 +162,18 @@ export class MainComponent implements OnInit {
     this.checkWordForm.patchValue(this.targetWord);
     this.statistics.mistakes++;
     this.targetWordIsSet = false;
+    this.statistics.mistakes++;
+    this.saveStatistics();
   }
 
   ngOnInit() {
     this.getCategories();
+  }
+
+  ngOnDestroy() {
+    this.saveStatistics();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }
