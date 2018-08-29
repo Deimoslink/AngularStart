@@ -76,27 +76,29 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   saveStatistics() {
-    if (this.targetWord.statistics) {
-      this.targetWord.statistics.mistakes += this.currentWordStatistics.mistakes;
-      this.targetWord.statistics.rightAnswers += this.currentWordStatistics.rightAnswers;
-      this.targetWord.statistics.attempts += this.currentWordStatistics.attempts;
-    } else {
-      this.targetWord['statistics'] = this.currentWordStatistics;
-    }
-
-    const word = Object.assign({}, this.targetWord);
-    delete word.id;
-
-    this.api.updateWordByKey(this.targetWord.id, word).subscribe(
-      () => {
-        this.currentWordStatistics = {
-          mistakes: 0,
-          rightAnswers: 0,
-          attempts: 0
-        };
-        this.statisticsSaved = true;
+    if (this.targetWord) {
+      if (this.targetWord.statistics) {
+        this.targetWord.statistics.mistakes += this.currentWordStatistics.mistakes;
+        this.targetWord.statistics.rightAnswers += this.currentWordStatistics.rightAnswers;
+        this.targetWord.statistics.attempts += this.currentWordStatistics.attempts;
+      } else {
+        this.targetWord['statistics'] = this.currentWordStatistics;
       }
-    );
+
+      const word = Object.assign({}, this.targetWord);
+      delete word.id;
+
+      this.api.updateWordByKey(this.targetWord.id, word).subscribe(
+        () => {
+          this.currentWordStatistics = {
+            mistakes: 0,
+            rightAnswers: 0,
+            attempts: 0
+          };
+          this.statisticsSaved = true;
+        }
+      );
+    }
   }
 
   checkRandomWord() {
