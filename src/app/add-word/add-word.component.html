@@ -2,7 +2,7 @@
   <div class="row">
     <form [formGroup]="addWordForm"
           (ngSubmit)="saveNewWord()"
-          class="add-word-form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+          class="add-word-form col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1 pb-0">
       <h4>Add a new word</h4>
       <div class="form-group">
         <label for="addRussianWord">Russian</label>
@@ -33,9 +33,43 @@
           <option *ngFor="let part of partsOfSpeech" [value]="part">{{part}}</option>
         </select>
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!addWordForm.valid">Add word</button>
+
+      <div class="form-buttons-wrapper">
+        <button class="btn btn-primary" type="submit" [disabled]="!addWordForm.valid">Add word</button>
+        <ng-container *ngIf="CSVImportMode">
+          <button class="btn btn-default" type="button" (click)="skipWord()">Skip</button>
+          <button class="btn btn-danger" type="button" (click)="quitAdding()">Quit adding from CSV</button>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="CSVImportMode">
+        <p class="mt-4 mb-0">Processing word {{numberOfProcessedWords}} out of total {{totalWordsToAdd}}</p>
+      </ng-container>
+
     </form>
   </div>
+
+  <div class="row mt-4 mb-4">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+      <div class="custom-file" id="customFile">
+        <input #file
+               [(ngModel)]="currentFile"
+               type="file"
+               class="custom-file-input"
+               id="exampleInputFile"
+               aria-describedby="fileHelp"
+               accept=".csv"
+               (input)="fileInput($event)">
+        <label class="custom-file-label" for="exampleInputFile">
+          <ng-container *ngIf="selectedFilename">
+            <span *ngIf="fileCorrect"><i class="icon-check text-success"></i> {{selectedFilename}}</span>
+            <span *ngIf="!fileCorrect"><i class="icon-remove text-danger"></i> File cannot be read</span>
+          </ng-container>
+          <span *ngIf="!selectedFilename"><i class="icon-cloud-upload text-primary"></i> Select .csv file to upload words</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="categories-container col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
       <div class="card">
