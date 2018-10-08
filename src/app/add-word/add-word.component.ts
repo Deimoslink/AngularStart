@@ -48,9 +48,9 @@ export class AddWordComponent implements OnInit {
     this.api.saveNewWord(Object.assign(this.addWordForm.value, {categories: addedCategories}))
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => {
-        this.wordsSubject.next();
         this.addWordForm.reset();
         this.categoriesMap = this.mapCategories();
+        this.wordsSubject.next();
       });
   }
 
