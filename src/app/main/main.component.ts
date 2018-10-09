@@ -6,6 +6,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SetCategoriesToGetModalComponent} from '../shared/modals/set-categories-to-get-modal/set-categories-to-get.modal.component';
 import {takeUntil} from 'rxjs/internal/operators/';
 import {Subject} from 'rxjs/Subject';
+import {SpeechSynthService} from '../shared/services/speech-synth.service';
 
 @Component({
   selector: 'app-main',
@@ -51,6 +52,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private api: ApiService,
+              private synth: SpeechSynthService,
               private modalService: NgbModal) {
     this.checkWordForm = fb.group({
       'eng': new FormControl({value: null, disabled: true},
@@ -113,6 +115,7 @@ export class MainComponent implements OnInit, OnDestroy {
       this.statistics.mistakes++;
       this.currentWordStatistics.mistakes++;
     } else {
+      this.synth.say(this.targetWord.ned);
       this.statistics.rightAnswers++;
       this.targetWordIsSet = false;
       this.currentWordStatistics.rightAnswers++;
